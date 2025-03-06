@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+    <model name="cornfield">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <heightmap>
+              <uri>model://cornfield/materials/heightmap/cornfield.png</uri>
+              <size>25 25 0.5</size>
+              <pos>0 0 0</pos>
+            </heightmap>
+          </geometry>
+        </collision>
+        <visual name="visual_abcedf">
+          <cast_shadows>true</cast_shadows>
+          <geometry>
+            <heightmap>
+              <texture>
+                <diffuse>model://cornfield/materials/textures/ground.jpeg</diffuse>
+                <normal>model://cornfield/materials/textures/ground_normal.jpg</normal>
+                <size>1</size>
+              </texture>
+              <uri>model://cornfield/materials/heightmap/cornfield.png</uri>
+              <size>25 25 0.5</size>
+              <pos>0 0 0</pos>
+            </heightmap>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+</sdf>
