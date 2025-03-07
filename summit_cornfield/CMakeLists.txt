@@ -9,4 +9,10 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(PROGRAMS
+  summit_cornfield/add_corns_node.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME add_corns_node
+)
+
 ament_package()
