@@ -70,6 +70,23 @@ def generate_launch_description():
         }.items(),
     )
 
+    summit_spawn_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory("summit_xl_gazebo"),
+                "launch",
+                "spawn.launch.py",
+            )
+        ),
+        launch_arguments={
+            "use_sim_time": "true",
+            "robot_id": "robot",
+            "namespace": "robot",
+            "pos_x": "-11.0",
+            "pos_y": "-11.5",
+        }.items(),
+    )
+
     ld = LaunchDescription()
 
     ld.add_action(launch_gui_cmd)
@@ -78,5 +95,6 @@ def generate_launch_description():
 
     ld.add_action(gazebo_client_cmd)
     ld.add_action(gazebo_server_cmd)
+    ld.add_action(summit_spawn_cmd)
 
     return ld
