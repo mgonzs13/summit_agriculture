@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
-  <model name="corn">
+  <model name="corn_2">
       <static>1</static>
       <link name='link'>
         <inertial>
@@ -17,11 +17,11 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://corn/meshes/corn.dae</uri>
-              <scale>0.01 0.01 0.01</scale>
+              <uri>model://corn_2/meshes/corn.dae</uri>
+              <scale>1 1 1</scale>
             </mesh>
           </geometry>
-          <pose>0 0 0 1.5708 0 0</pose>
+          <pose>0 0 0 0 0 0</pose>
           <surface>
             <friction>
               <ode>
@@ -42,11 +42,11 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://corn/meshes/corn.dae</uri>
-              <scale>0.01 0.01 0.01</scale>
+              <uri>model://corn_2/meshes/corn.dae</uri>
+              <scale>1 1 1</scale>
             </mesh>
           </geometry>
-          <pose>0 0 0 1.5708 0 0</pose>
+          <pose>0 0 0 0 0 0</pose>
         </visual>
         <velocity_decay>
           <linear>0.000000</linear>
