@@ -57,6 +57,9 @@ def generate_launch_description():
             "qos_camera_info": 1,
             "qos_imu": 1,
             "qos_gps": 1,
+            # Hypotheses selection
+            "Rtabmap/LoopGPS": "true",
+            "Rtabmap/LoopThr": "0.11",
             # 0=TORO, 1=g2o, 2=GTSAM and 3=Ceres
             "Optimizer/Strategy": "2",
             "Optimizer/GravitySigma": "0.0",

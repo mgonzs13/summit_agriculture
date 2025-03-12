@@ -1,5 +1,12 @@
 <sdf version='1.7'>
   <world name='default'>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>42.61285</latitude_deg>  
+      <longitude_deg>-5.56566</longitude_deg>  
+      <elevation>880.0</elevation>
+      <heading_deg>180</heading_deg>
+    </spherical_coordinates>
     <plugin name='gazebo_ros_state' filename='libgazebo_ros_state.so'>
       <update_rate>1.0</update_rate>
     </plugin>
