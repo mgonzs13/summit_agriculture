@@ -5,7 +5,7 @@ project(summit_navigation)
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY launch params behavior_trees
+  DIRECTORY launch params behavior_trees rviz
   DESTINATION share/${PROJECT_NAME}
 )
 

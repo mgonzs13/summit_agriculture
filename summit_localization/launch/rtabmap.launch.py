@@ -40,7 +40,7 @@ def generate_launch_description():
     launch_rtabmapviz = LaunchConfiguration("launch_rtabmapviz")
     launch_rtabmapviz_cmd = DeclareLaunchArgument(
         "launch_rtabmapviz",
-        default_value="True",
+        default_value="False",
         description="Wheather to launch rtabmapviz",
     )
 

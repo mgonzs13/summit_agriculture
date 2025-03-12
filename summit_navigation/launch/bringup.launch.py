@@ -32,7 +32,7 @@ from launch.actions import (
 )
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.actions import PushRosNamespace
 from nav2_common.launch import RewrittenYaml
@@ -165,7 +165,24 @@ def generate_launch_description():
         description="Nav2 controller (DWB)",
     )
 
+    launch_rviz = LaunchConfiguration("launch_rviz")
+    launch_rviz_cmd = DeclareLaunchArgument(
+        "launch_rviz",
+        default_value="True",
+        description="Whether launch rviz",
+    )
+
     nav2_cmd = OpaqueFunction(function=run_nav2, args=[planner, controller])
+
+    rviz2_cmd = Node(
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        arguments=["-d", os.path.join(pkg_dir, "rviz", "nav2.rviz")],
+        parameters=[{"use_sim_time": LaunchConfiguration("use_sim_time")}],
+        output="log",
+        condition=IfCondition(PythonExpression([launch_rviz])),
+    )
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -184,6 +201,8 @@ def generate_launch_description():
     ld.add_action(declare_use_respawn_cmd)
     ld.add_action(planner_cmd)
     ld.add_action(controller_cmd)
+    ld.add_action(launch_rviz_cmd)
+    ld.add_action(rviz2_cmd)
 
     # Add the actions to launch all of the navigation nodes
     ld.add_action(nav2_cmd)
