@@ -152,17 +152,17 @@ def generate_launch_description():
     planner = LaunchConfiguration("planner")
     planner_cmd = DeclareLaunchArgument(
         "planner",
-        default_value="SmacHybrid",
-        choices=["SmacHybrid", "SmacLattice"],
-        description="Nav2 planner (SmacHybrid or SmacLattice)",
+        default_value="Navfn",
+        choices=["Navfn"],
+        description="Nav2 planner (Navfn)",
     )
 
     controller = LaunchConfiguration("controller")
     controller_cmd = DeclareLaunchArgument(
         "controller",
-        default_value="RPP",
-        choices=["RPP", "TEB"],
-        description="Nav2 controller (RPP or TEB)",
+        default_value="DWB",
+        choices=["DWB"],
+        description="Nav2 controller (DWB)",
     )
 
     nav2_cmd = OpaqueFunction(function=run_nav2, args=[planner, controller])
