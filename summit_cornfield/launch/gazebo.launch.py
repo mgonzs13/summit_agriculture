@@ -87,6 +87,7 @@ def generate_launch_description():
             "namespace": "robot",
             "pos_x": "-11.0",
             "pos_y": "-11.5",
+            "pos_z": "0.25",
         }.items(),
     )
 
