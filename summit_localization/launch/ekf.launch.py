@@ -62,9 +62,6 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
-
     ld.add_action(use_sim_time_cmd)
-
     ld.add_action(ekf_cmd)
-
     return ld

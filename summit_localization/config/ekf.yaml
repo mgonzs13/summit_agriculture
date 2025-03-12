@@ -1,7 +1,12 @@
 ekf_filter_node:
   ros__parameters:
-    qos_overrides./odom.publisher.reliability: reliable
-    qos_overrides./accel.publisher.reliability: reliable
+    qos_overrides:
+      /odom:
+        publisher:
+          reliability: reliable
+      /accel:
+        publisher:
+          reliability: reliable
 
     use_sim_time: false
     two_d_mode: false

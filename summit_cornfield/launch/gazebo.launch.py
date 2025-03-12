@@ -27,7 +27,6 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
-from launch_ros.actions import Node
 from launch.conditions import IfCondition
 
 
@@ -45,12 +44,16 @@ def generate_launch_description():
 
     launch_gui = LaunchConfiguration("launch_gui")
     launch_gui_cmd = DeclareLaunchArgument(
-        "launch_gui", default_value="True", description="Whether launch gzclient"
+        "launch_gui",
+        default_value="True",
+        description="Whether launch gzclient",
     )
 
     pause_gz = LaunchConfiguration("pause_gz")
     pause_gz_cmd = DeclareLaunchArgument(
-        "pause_gz", default_value="False", description="Whether to pause gazebo"
+        "pause_gz",
+        default_value="False",
+        description="Whether to pause gazebo",
     )
 
     gazebo_client_cmd = IncludeLaunchDescription(
@@ -87,11 +90,40 @@ def generate_launch_description():
         }.items(),
     )
 
+    summit_localization_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory("summit_localization"),
+                "launch",
+                "localization.launch.py",
+            )
+        ),
+        launch_arguments={
+            "use_sim_time": "True",
+        }.items(),
+    )
+
+    summit_navigation_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory("summit_navigation"),
+                "launch",
+                "bringup.launch.py",
+            )
+        ),
+        launch_arguments={
+            "use_sim_time": "true",
+        }.items(),
+    )
+
     ld = LaunchDescription()
 
     ld.add_action(launch_gui_cmd)
     ld.add_action(pause_gz_cmd)
     ld.add_action(world_cmd)
+
+    ld.add_action(summit_localization_cmd)
+    ld.add_action(summit_navigation_cmd)
 
     ld.add_action(gazebo_client_cmd)
     ld.add_action(gazebo_server_cmd)
