@@ -115,7 +115,7 @@ def generate_launch_description():
         ("/scan_cloud", "/robot/robosense_helios_16p/point_cloud"),
         ("imu", "/robot/imu/data"),
         ("gps/fix", "/robot/gps/fix"),
-        ("odom", "/robot/robotnik_base_control/odom"),
+        ("odom", "/odom"),
         ("goal", "goal_pose"),
     ]
 
@@ -129,7 +129,7 @@ def generate_launch_description():
                 output="log",
                 parameters=parameters,
                 remappings=remappings,
-                # arguments=["-d", "--ros-args", "--log-level", "Error"],
+                arguments=["-d", "--ros-args", "--log-level", "Error"],
             ),
             Node(
                 condition=IfCondition(launch_rtabmapviz),

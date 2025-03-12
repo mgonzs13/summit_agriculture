@@ -10862,10 +10862,10 @@
       <pose>10.5511 9.5 0.24 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>61 5000000</sim_time>
-      <real_time>62 726454103</real_time>
-      <wall_time>1741348525 254607165</wall_time>
-      <iterations>61005</iterations>
+      <sim_time>159 183000000</sim_time>
+      <real_time>13 289830660</real_time>
+      <wall_time>1741772131 713592943</wall_time>
+      <iterations>12792</iterations>
       <model name='corn_-0.6984063872102411_-1.0'>
         <pose>-0.698406 -1 0.24 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -12562,7 +12562,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>13.512 -16.3794 5.50493 0 0.327456 2.26419</pose>
+        <pose>-13.8201 -12.2958 1.46415 0 0.231456 0.248191</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

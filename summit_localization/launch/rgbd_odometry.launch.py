@@ -110,8 +110,8 @@ def generate_launch_description():
                 output="log",
                 parameters=parameters,
                 remappings=remappings,
-                namespace="rgb_odometry",
-                # arguments=["--ros-args", "--log-level", "Error"],
+                namespace="rgbd_odometry",
+                arguments=["--ros-args", "--log-level", "Error"],
             ),
         ]
     )

@@ -47,5 +47,13 @@
       <uri>model://cornfield</uri>
     </include>
 
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>-13.8201 -12.2958 1.46415 0 0.231456 0.248191</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
   </world>
 </sdf>
