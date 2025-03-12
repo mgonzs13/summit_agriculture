@@ -1,0 +1,12 @@
+[submodule "summit_xl_sim"]
+	path = summit_xl_sim
+	url = git@github.com:mgonzs13/summit_xl_sim.git
+[submodule "summit_xl_common"]
+	path = summit_xl_common
+	url = git@github.com:mgonzs13/summit_xl_common.git
+[submodule "robotnik_sensors"]
+	path = robotnik_sensors
+	url = git@github.com:mgonzs13/robotnik_sensors.git
+[submodule "robotnik_common"]
+	path = robotnik_common
+	url = git@github.com:mgonzs13/robotnik_common.git
