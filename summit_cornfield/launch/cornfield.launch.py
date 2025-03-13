@@ -24,9 +24,8 @@
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
@@ -39,6 +38,9 @@ def generate_launch_description():
         ),
         launch_arguments={
             "world": os.path.join(pkg_path, "worlds", "cornfield.world"),
+            "pos_x": "-11.0",
+            "pos_y": "-11.0",
+            "pos_z": "0.25",
         }.items(),
     )
 
