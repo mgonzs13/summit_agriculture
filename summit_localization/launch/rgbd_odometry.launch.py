@@ -23,9 +23,19 @@
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
+from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument
 
 
 def generate_launch_description():
+
+    use_sim_time = LaunchConfiguration("use_sim_time")
+    use_sim_time_cmd = DeclareLaunchArgument(
+        "use_sim_time",
+        default_value="False",
+        description="Use simulation (Gazebo) clock if True",
+    )
+
     parameters = [
         {
             "frame_id": "robot/base_footprint",
@@ -33,7 +43,10 @@ def generate_launch_description():
             "subscribe_rgb": True,
             "approx_sync": True,
             "approx_sync_max_interval": 0.01,
+            "sync_queue_size": 5,
+            "topic_queue_size": 10,
             "publish_tf": False,
+            "use_sim_time": use_sim_time,
             "wait_imu_to_init": False,
             "publish_null_when_lost": False,
             "qos": 1,
@@ -99,11 +112,11 @@ def generate_launch_description():
         ("rgb/image", "/robot/zed2/rgb/image_raw_color"),
         ("rgb/camera_info", "/robot/zed2/rgb/camera_info"),
         ("depth/image", "/robot/zed2/depth/depth_registered"),
-        ("imu", "/robot/imu/data"),
     ]
 
     return LaunchDescription(
         [
+            use_sim_time_cmd,
             Node(
                 package="rtabmap_odom",
                 executable="rgbd_odometry",
@@ -111,7 +124,7 @@ def generate_launch_description():
                 parameters=parameters,
                 remappings=remappings,
                 namespace="rgbd_odometry",
-                arguments=["--ros-args", "--log-level", "Error"],
+                arguments=["--ros-args", "--log-level", "Warn"],
             ),
         ]
     )
