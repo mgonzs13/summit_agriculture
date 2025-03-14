@@ -38,9 +38,9 @@ def generate_launch_description():
         ),
         launch_arguments={
             "world": os.path.join(pkg_path, "worlds", "cornfield.world"),
-            "pos_x": "-11.4",
-            "pos_y": "-11.7",
-            "pos_z": "0.1",
+            "pos_x": "-11.35",
+            "pos_y": "-11.83",
+            "pos_z": "0.086",
             "pause_gz": "true",
         }.items(),
     )

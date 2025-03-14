@@ -49,7 +49,7 @@ def generate_launch_description():
             "frame_id": "robot/base_footprint",
             "subscribe_depth": True,
             "subscribe_rgb": True,
-            "subscribe_scan_cloud": False,
+            "subscribe_scan_cloud": True,
             "approx_sync": True,
             "publish_tf": True,
             "use_sim_time": use_sim_time,
@@ -141,7 +141,7 @@ def generate_launch_description():
                 output="screen",
                 parameters=parameters,
                 remappings=remappings,
-                arguments=["-d", "--ros-args", "--log-level", "Error"],
+                arguments=["--ros-args", "--log-level", "Error"],
             ),
         ]
     )
