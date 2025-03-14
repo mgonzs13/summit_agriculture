@@ -7,7 +7,7 @@
           <geometry>
             <heightmap>
               <uri>model://cornfield/materials/heightmap/cornfield.png</uri>
-              <size>25 25 0.4</size>
+              <size>25 25 0.25</size>
               <pos>0 0 0</pos>
             </heightmap>
           </geometry>
@@ -30,7 +30,7 @@
                 <size>1</size>
               </texture>
               <uri>model://cornfield/materials/heightmap/cornfield.png</uri>
-              <size>25 25 0.4</size>
+              <size>25 25 0.25</size>
               <pos>0 0 0</pos>
             </heightmap>
           </geometry>

@@ -88,7 +88,7 @@ class CornSpawner(Node):
         request.xml = self.corn_model_xml
         request.initial_pose.position.x = x
         request.initial_pose.position.y = y
-        request.initial_pose.position.z = 0.24
+        request.initial_pose.position.z = 0.15
         request.initial_pose.orientation.w = 1.0
 
         future = self.client.call_async(request)
