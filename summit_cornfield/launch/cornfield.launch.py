@@ -41,6 +41,7 @@ def generate_launch_description():
             "pos_x": "-11.4",
             "pos_y": "-11.7",
             "pos_z": "0.1",
+            "pause_gz": "true",
         }.items(),
     )
 

@@ -8,6 +8,7 @@ ekf_filter_node:
         publisher:
           reliability: reliable
 
+    frequency: 30.0
     use_sim_time: false
     two_d_mode: false
     print_diagnostics: true
@@ -24,14 +25,6 @@ ekf_filter_node:
     odom0: /robot/robotnik_base_control/odom
     odom0_config:
       [
-        true,
-        true,
-        false,
-
-        false,
-        false,
-        true,
-
         false,
         false,
         false,
@@ -39,12 +32,21 @@ ekf_filter_node:
         false,
         false,
         false,
+
+        true,
+        true,
+        true,
+
+        false,
+        false,
+        true,
 
         false,
         false,
         false,
       ]
-    odom0_differential: true
+    odom0_queue_size: 10
+    odom0_differential: false
     odom0_relative: false
 
     odom1: /rgbd_odometry/odom
@@ -56,11 +58,11 @@ ekf_filter_node:
 
         false,
         false,
-        true,
+        false,
 
-        true,
-        true,
-        true,
+        false,
+        false,
+        false,
 
         false,
         false,
@@ -70,8 +72,9 @@ ekf_filter_node:
         false,
         false,
       ]
+    odom1_queue_size: 10
     odom1_differential: false
-    odom1_relative: true
+    odom1_relative: false
 
     imu0: /robot/imu/data
     imu0_config:
@@ -82,23 +85,24 @@ ekf_filter_node:
 
         true,
         true,
-        false,
+        true,
 
         false,
         false,
         false,
 
-        true,
-        true,
-        true,
+        false,
+        false,
+        false,
 
         false,
         false,
         false,
       ]
+    imu0_queue_size: 10
     imu0_differential: false
-    imu0_relative: true
-    imu0_remove_gravitational_acceleration: false
+    imu0_relative: false
+    imu0_remove_gravitational_acceleration: true
 
     process_noise_covariance:
       [
