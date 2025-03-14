@@ -160,9 +160,9 @@ def generate_launch_description():
     controller = LaunchConfiguration("controller")
     controller_cmd = DeclareLaunchArgument(
         "controller",
-        default_value="DWB",
-        choices=["DWB"],
-        description="Nav2 controller (DWB)",
+        default_value="TEB",
+        choices=["DWB", "TEB"],
+        description="Nav2 controller (DWB or TEB)",
     )
 
     launch_rviz = LaunchConfiguration("launch_rviz")
