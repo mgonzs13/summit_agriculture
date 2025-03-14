@@ -12,7 +12,3 @@ rosdep install --from-paths src --ignore-src -r -y
 ```shell
 ros2 launch summit_cornfield cornfield.launch.py
 ```
-
-```shell
-ros2 launch summit_localization localization.launch.py use_sim_time:=True
-```

@@ -40,7 +40,7 @@ def generate_launch_description():
             "world": os.path.join(pkg_path, "worlds", "cornfield.world"),
             "pos_x": "-11.0",
             "pos_y": "-11.0",
-            "pos_z": "0.25",
+            "pos_z": "0.20",
         }.items(),
     )
 
