@@ -4,8 +4,6 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /Status1
         - /Odometry1/Topic1
         - /Map3/Topic1
       Splitter Ratio: 0.5
@@ -333,7 +331,7 @@ Visualization Manager:
       Selectable: true
       Size (Pixels): 5
       Size (m): 0.05000000074505806
-      Style: Points
+      Style: Tiles
       Topic:
         Depth: 5
         Durability Policy: Transient Local
@@ -507,10 +505,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6403980255126953
+      Pitch: 1.0353977680206299
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.3585832118988037
+      Yaw: 3.363583564758301
     Saved: ~
 Window Geometry:
   Displays:
