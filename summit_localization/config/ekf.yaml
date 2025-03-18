@@ -49,7 +49,7 @@ ekf_filter_node:
     odom0_differential: false
     odom0_relative: false
 
-    odom1: /rgbd_odometry/odom
+    odom1: /robot/zed2/zed_node/odom
     odom1_config:
       [
         true,

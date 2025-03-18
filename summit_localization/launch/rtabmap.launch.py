@@ -112,10 +112,10 @@ def generate_launch_description():
     ]
 
     remappings = [
-        ("rgb/image", "/robot/zed2/rgb/image_raw_color"),
-        ("rgb/camera_info", "/robot/zed2/rgb/camera_info"),
-        ("depth/image", "/robot/zed2/depth/depth_registered"),
-        ("/scan_cloud", "/robot/robosense_helios_16p/point_cloud"),
+        ("rgb/image", "/robot/zed2/zed_node/rgb/image_raw_color"),
+        ("rgb/camera_info", "/robot/zed2/zed_node/rgb/camera_info"),
+        ("depth/image", "/robot/zed2/zed_node/depth/depth_registered"),
+        ("/scan_cloud", "/robot/top_3d_laser/points_filtered"),
         ("imu", "/robot/imu/data"),
         ("gps/fix", "/robot/gps/fix"),
         ("odom", "/odom"),

@@ -26,8 +26,9 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition
 
 
 def generate_launch_description():
@@ -46,6 +47,7 @@ def generate_launch_description():
             os.path.join(pkg_localization, "launch", "rgbd_odometry.launch.py")
         ),
         launch_arguments={"use_sim_time": use_sim_time}.items(),
+        condition=IfCondition(PythonExpression([LaunchConfiguration("use_sim_time")])),
     )
 
     rtabmap_cmd = IncludeLaunchDescription(
