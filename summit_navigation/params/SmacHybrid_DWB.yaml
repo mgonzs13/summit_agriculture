@@ -155,7 +155,7 @@ local_costmap:
       plugins: [voxel_layer, inflation_layer]
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
-        cost_scaling_factor: 3.0
+        cost_scaling_factor: 1.0
         inflation_radius: 0.3
       voxel_layer:
         plugin: nav2_costmap_2d::VoxelLayer
@@ -168,7 +168,7 @@ local_costmap:
         z_voxels: 16
         unknown_threshold: 15
         mark_threshold: 0
-        observation_sources: front_scan rgbd_camera
+        observation_sources: front_scan # rgbd_camera
         front_scan:
           topic: /robot/robosense_helios_16p/point_cloud
           max_obstacle_height: 3.0
@@ -213,7 +213,7 @@ global_costmap:
         map_subscribe_transient_local: True
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
-        cost_scaling_factor: 3.0
+        cost_scaling_factor: 1.0
         inflation_radius: 0.3
       always_send_full_costmap: True
 
