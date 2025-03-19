@@ -49,8 +49,8 @@ def generate_launch_description():
             "use_sim_time": use_sim_time,
             "wait_imu_to_init": False,
             "publish_null_when_lost": False,
-            "qos": 1,
-            "qos_camera_info": 1,
+            "qos": 2,
+            "qos_camera_info": 2,
             # 0=TORO, 1=g2o, 2=GTSAM and 3=Ceres
             "Optimizer/Strategy": "2",
             "Optimizer/GravitySigma": "0.0",
@@ -112,6 +112,7 @@ def generate_launch_description():
         ("rgb/image", "/robot/zed2/zed_node/rgb/image_raw_color"),
         ("rgb/camera_info", "/robot/zed2/zed_node/rgb/camera_info"),
         ("depth/image", "/robot/zed2/zed_node/depth/depth_registered"),
+        ("imu", "/robot/zed2/zed_node_imu/data"),
         ("odom", "/robot/zed2/zed_node/odom"),
     ]
 
