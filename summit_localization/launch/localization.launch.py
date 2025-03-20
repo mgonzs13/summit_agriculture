@@ -69,6 +69,12 @@ def generate_launch_description():
         launch_arguments={"use_sim_time": use_sim_time}.items(),
     )
 
+    lidarslam_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_localization, "launch", "lidarslam.launch.py")
+        ),
+    )
+
     ekf_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_localization, "launch", "ekf.launch.py")
@@ -82,6 +88,7 @@ def generate_launch_description():
     ld.add_action(laser_filter_node_cmd)
     ld.add_action(rgbd_odometry_cmd)
     ld.add_action(rtabmap_cmd)
+    # ld.add_action(lidarslam_cmd)
     ld.add_action(ekf_cmd)
 
     return ld
