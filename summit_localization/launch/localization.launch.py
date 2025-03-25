@@ -28,7 +28,7 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch.actions import DeclareLaunchArgument
-from launch.conditions import IfCondition
+from launch.conditions import IfCondition, UnlessCondition
 from launch_ros.actions import Node
 
 
@@ -52,6 +52,15 @@ def generate_launch_description():
             ("~/output", "/robot/top_3d_laser/points_filtered"),
         ],
         condition=IfCondition(PythonExpression([LaunchConfiguration("use_sim_time")])),
+    )
+
+    camera_info_pub_cmd = Node(
+        package="camera_info_pub",
+        executable="camera_info_pub_node",
+        name="camera_info_pub_node",
+        condition=UnlessCondition(
+            PythonExpression([LaunchConfiguration("use_sim_time")])
+        ),
     )
 
     rgbd_odometry_cmd = IncludeLaunchDescription(
@@ -86,6 +95,7 @@ def generate_launch_description():
 
     ld.add_action(use_sim_time_cmd)
     ld.add_action(laser_filter_node_cmd)
+    ld.add_action(camera_info_pub_cmd)
     ld.add_action(rgbd_odometry_cmd)
     ld.add_action(rtabmap_cmd)
     # ld.add_action(lidarslam_cmd)
