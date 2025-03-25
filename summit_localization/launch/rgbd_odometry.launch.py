@@ -110,7 +110,7 @@ def generate_launch_description():
 
     remappings = [
         ("rgb/image", "/robot/zed2/zed_node/rgb/image_rect_color"),
-        ("rgb/camera_info", "/robot/zed2/zed_node/rgb/camera_info"),
+        ("rgb/camera_info", "/robot/zed2/zed_node/camera_info"),
         ("depth/image", "/robot/zed2/zed_node/depth/depth_registered"),
         ("imu", "/robot/zed2/zed_node_imu/data"),
         ("odom", "/robot/zed2/zed_node/odom"),
