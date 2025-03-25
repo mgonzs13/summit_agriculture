@@ -44,30 +44,32 @@ class CameraInfoPublisher(Node):
     def image_callback(self, msg: Image):
         camera_info = CameraInfo()
         camera_info.header = msg.header
-        camera_info.height = 376
-        camera_info.width = 672
+        camera_info.height = 360
+        camera_info.width = 640
         camera_info.distortion_model = "plumb_bob"
-        camera_info.d = [0.0, 0.0, 0.0, 0.0, 0.0]
+        scale_x = 640 / 672
+        scale_y = 360 / 376
+
         camera_info.k = [
-            260.9255065917969,
+            260.9255065917969 * scale_x,
             0.0,
-            335.02545166015625,
+            335.02545166015625 * scale_x,
             0.0,
-            260.9255065917969,
-            190.65074157714844,
+            260.9255065917969 * scale_y,
+            190.65074157714844 * scale_y,
             0.0,
             0.0,
             1.0,
         ]
         camera_info.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
         camera_info.p = [
-            260.9255065917969,
+            260.9255065917969 * scale_x,
             0.0,
-            335.02545166015625,
+            335.02545166015625 * scale_x,
             0.0,
             0.0,
-            260.9255065917969,
-            190.65074157714844,
+            260.9255065917969 * scale_y,
+            190.65074157714844 * scale_y,
             0.0,
             0.0,
             0.0,
@@ -83,7 +85,7 @@ class CameraInfoPublisher(Node):
         camera_info.roi.do_rectify = False
 
         self.publisher.publish(camera_info)
-        self.get_logger().info("Published CameraInfo message")
+        self.get_logger().debug("Published CameraInfo message")
 
 
 def main(args=None):

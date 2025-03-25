@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 3.5)
 project(camera_info_pub)
 

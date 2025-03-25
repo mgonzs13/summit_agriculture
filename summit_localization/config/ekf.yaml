@@ -76,7 +76,7 @@ ekf_filter_node:
     odom1_differential: false
     odom1_relative: false
 
-    imu0: /robot/imu/data
+    imu0: /robot/zed2/zed_node/imu/data
     imu0_config:
       [
         false,
