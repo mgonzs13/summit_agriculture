@@ -34,7 +34,7 @@ def generate_launch_description():
 
     gazebo_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_path, "launch", "gazebo.launch.py")
+            os.path.join(pkg_path, "launch", "ign_gazebo.launch.py")
         ),
         launch_arguments={
             "world": os.path.join(pkg_path, "worlds", "cornfield.world"),
