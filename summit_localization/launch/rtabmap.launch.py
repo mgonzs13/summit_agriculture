@@ -133,7 +133,7 @@ def generate_launch_description():
                 output="log",
                 parameters=parameters,
                 remappings=remappings,
-                arguments=["-d", "--ros-args", "--log-level", "Error"],
+                arguments=["-d", "--ros-args", "--log-level", "Warn"],
             ),
             Node(
                 condition=IfCondition(launch_rtabmapviz),
@@ -142,7 +142,7 @@ def generate_launch_description():
                 output="screen",
                 parameters=parameters,
                 remappings=remappings,
-                arguments=["--ros-args", "--log-level", "Error"],
+                arguments=["--ros-args", "--log-level", "Warn"],
             ),
         ]
     )
