@@ -46,14 +46,21 @@ def generate_launch_description():
     launch_gui_cmd = DeclareLaunchArgument(
         "launch_gui",
         default_value="True",
-        description="Whether launch gzclient",
+        description="Whether to launch gzclient",
     )
 
     pause_gz = LaunchConfiguration("pause_gz")
     pause_gz_cmd = DeclareLaunchArgument(
         "pause_gz",
         default_value="False",
-        description="Whether to pause gazebo",
+        description="Whether to pause Gazebo",
+    )
+
+    use_gps = LaunchConfiguration("use_gps")
+    use_gps_cmd = DeclareLaunchArgument(
+        "use_gps",
+        default_value="False",
+        description="Whether to enable GPS localization",
     )
 
     gazebo_client_cmd = IncludeLaunchDescription(
@@ -104,6 +111,20 @@ def generate_launch_description():
         }.items(),
     )
 
+    summit_gps_localization_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory("summit_localization"),
+                "launch",
+                "summit_gps_waypoint_follower.launch.py",
+            )
+        ),
+        launch_arguments={
+            "use_mapviz": "True",
+        }.items(),
+        condition=IfCondition(use_gps),
+    )
+
     summit_navigation_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
@@ -122,8 +143,10 @@ def generate_launch_description():
     ld.add_action(launch_gui_cmd)
     ld.add_action(pause_gz_cmd)
     ld.add_action(world_cmd)
+    ld.add_action(use_gps_cmd)
 
     ld.add_action(summit_localization_cmd)
+    ld.add_action(summit_gps_localization_cmd)  
     ld.add_action(summit_navigation_cmd)
 
     ld.add_action(gazebo_client_cmd)
