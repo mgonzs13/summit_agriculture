@@ -12,10 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 import os
-
 from ament_index_python.packages import get_package_share_directory
-
 from launch import LaunchDescription
 from launch.substitutions import LaunchConfiguration
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
@@ -26,36 +25,38 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # Get the launch directory
-    gps_wpf_dir = get_package_share_directory(
-        "summit_localization")
-    launch_dir = os.path.join(gps_wpf_dir, 'launch')
+    gps_wpf_dir = get_package_share_directory("summit_localization")
+    launch_dir = os.path.join(gps_wpf_dir, "launch")
 
-    use_mapviz = LaunchConfiguration('use_mapviz')
+    use_mapviz = LaunchConfiguration("use_mapviz")
 
     declare_use_mapviz_cmd = DeclareLaunchArgument(
-        'use_mapviz',
-        default_value='False',
-        description='Whether to start mapviz')
+        "use_mapviz", default_value="False", description="Whether to start mapviz"
+    )
 
     robot_localization_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_dir, 'summit_dual_ekf_navsat.launch.py'))
+            os.path.join(launch_dir, "summit_dual_ekf_navsat.launch.py")
+        )
     )
 
     mapviz_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_dir, 'summit_mapviz.launch.py')),
-        condition=IfCondition(use_mapviz)
+            os.path.join(launch_dir, "summit_mapviz.launch.py")
+        ),
+        condition=IfCondition(use_mapviz),
     )
 
-    interactive_waypoint = LaunchDescription([
-        Node(
-            package='summit_localization',
-            executable='interactive_waypoint_follower',
-            name='waypoint_follower',
-            output='screen',
-        )
-    ])
+    interactive_waypoint = LaunchDescription(
+        [
+            Node(
+                package="summit_localization",
+                executable="interactive_waypoint_follower",
+                name="waypoint_follower",
+                output="screen",
+            )
+        ]
+    )
 
     # Create the launch description and populate
     ld = LaunchDescription()

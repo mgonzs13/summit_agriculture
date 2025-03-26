@@ -146,7 +146,7 @@ def generate_launch_description():
     ld.add_action(use_gps_cmd)
 
     ld.add_action(summit_localization_cmd)
-    ld.add_action(summit_gps_localization_cmd)  
+    ld.add_action(summit_gps_localization_cmd)
     ld.add_action(summit_navigation_cmd)
 
     ld.add_action(gazebo_client_cmd)

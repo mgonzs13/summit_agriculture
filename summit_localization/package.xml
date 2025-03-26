@@ -6,19 +6,17 @@
   <description>Localization package</description>
   <maintainer email="mgons@unileon.es">Miguel Ángel González Santamarta</maintainer>
   <license>MIT</license>
-
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend>
-
-
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
-  
+  <depend>rclpy</depend>
   <depend>rtabmap</depend>
   <depend>rtabmap_ros</depend>
   <depend>robot_localization</depend>
-  <depend>rclpy</depend>
-
+  <depend>mapviz</depend>
+  <depend>mapviz-plugins</depend>
+  <depend>tile-map</depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>

@@ -10,25 +10,27 @@ mapviz_config_file = os.path.join(gps_wpf_dir, "config", "summit.mvc")
 
 
 def generate_launch_description():
-    return launch.LaunchDescription([
-        launch_ros.actions.Node(
-            package="mapviz",
-            executable="mapviz",
-            name="mapviz",
-            parameters=[{"config": mapviz_config_file}]
-        ),
-        launch_ros.actions.Node(
-            package="swri_transform_util",
-            executable="initialize_origin.py",
-            name="initialize_origin",
-            remappings=[
-                ("fix", "robot/gps/fix"),
-            ],
-        ),
-        launch_ros.actions.Node(
-            package="tf2_ros",
-            executable="static_transform_publisher",
-            name="swri_transform",
-            arguments=["0", "0", "0", "0", "0", "0", "map", "origin"]
-        )
-    ])
+    return launch.LaunchDescription(
+        [
+            launch_ros.actions.Node(
+                package="mapviz",
+                executable="mapviz",
+                name="mapviz",
+                parameters=[{"config": mapviz_config_file}],
+            ),
+            launch_ros.actions.Node(
+                package="swri_transform_util",
+                executable="initialize_origin.py",
+                name="initialize_origin",
+                remappings=[
+                    ("fix", "robot/gps/fix"),
+                ],
+            ),
+            launch_ros.actions.Node(
+                package="tf2_ros",
+                executable="static_transform_publisher",
+                name="swri_transform",
+                arguments=["0", "0", "0", "0", "0", "0", "map", "origin"],
+            ),
+        ]
+    )

@@ -11,18 +11,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from launch import LaunchDescription
-from ament_index_python.packages import get_package_share_directory
-import launch_ros.actions
+
 import os
 import launch.actions
+import launch_ros.actions
+from launch import LaunchDescription
+from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    gps_wpf_dir = get_package_share_directory(
-        "summit_localization")
+    gps_wpf_dir = get_package_share_directory("summit_localization")
     rl_params_file = os.path.join(
-        gps_wpf_dir, "config", "summit_dual_ekf_navsat_params.yaml")
+        gps_wpf_dir, "config", "summit_dual_ekf_navsat_params.yaml"
+    )
 
     return LaunchDescription(
         [
@@ -55,7 +56,7 @@ def generate_launch_description():
                 output="screen",
                 parameters=[rl_params_file, {"use_sim_time": True}],
                 remappings=[
-                    ("imu/data", "/robot/imu/data"),
+                    ("imu/data", "/robot/zed2/zed_node/imu/data"),
                     ("gps/fix", "/robot/gps/fix"),
                     ("gps/filtered", "gps/filtered"),
                     ("odometry/gps", "odometry/gps"),

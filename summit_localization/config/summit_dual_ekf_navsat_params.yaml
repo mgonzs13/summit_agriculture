@@ -36,7 +36,7 @@ ekf_filter_node_odom:
     odom0_differential: false
     odom0_relative: false
 
-    imu0: /robot/imu
+    imu0: /robot/zed2/zed_node/imu/data
     imu0_config:
       [
         false,
@@ -350,7 +350,7 @@ ekf_filter_node_map:
     odom1_differential: false
     odom1_relative: false
 
-    imu0: /robot/imu
+    imu0: /robot/zed2/zed_node/imu/data
     imu0_config:
       [
         false,
