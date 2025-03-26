@@ -21,7 +21,7 @@
 FilterNode::FilterNode(const rclcpp::NodeOptions &options)
     : Node("FilterNode", options),
       publisher_{create_publisher<sensor_msgs::msg::PointCloud2>(
-          "~/output", rclcpp::QoS(1).reliable())},
+          "~/output", rclcpp::QoS(1).best_effort())},
       subscription_{create_subscription<sensor_msgs::msg::PointCloud2>(
           "~/input", rclcpp::QoS(1).reliable(),
           std::bind(&FilterNode::topic_callback, this,

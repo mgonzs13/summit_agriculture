@@ -49,8 +49,8 @@ def generate_launch_description():
             "use_sim_time": use_sim_time,
             "wait_imu_to_init": False,
             "publish_null_when_lost": False,
-            "qos": 2,
-            "qos_camera_info": 2,
+            "qos": 1,
+            "qos_camera_info": 1,
             # 0=TORO, 1=g2o, 2=GTSAM and 3=Ceres
             "Optimizer/Strategy": "2",
             "Optimizer/GravitySigma": "0.0",
