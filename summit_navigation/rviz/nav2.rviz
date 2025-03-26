@@ -90,8 +90,6 @@ Visualization Manager:
           Value: true
         robot/imu/link:
           Value: true
-        utm:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -137,8 +135,6 @@ Visualization Manager:
                 robot/imu/base_link:
                   robot/imu/link:
                     {}
-            utm:
-              {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -515,6 +511,26 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /local_plan
       Value: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz_default_plugins/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /goal_pose
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -576,10 +592,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8927883505821228
+      Pitch: 0.8627883791923523
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.560781478881836
+      Yaw: 3.570781707763672
     Saved: ~
 Window Geometry:
   Displays:
