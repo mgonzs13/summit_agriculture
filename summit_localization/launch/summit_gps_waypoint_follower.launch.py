@@ -63,7 +63,7 @@ def generate_launch_description():
     # robot localization launch
     ld.add_action(robot_localization_cmd)
 
-    ld.add_action(interactive_waypoint)
+    # ld.add_action(interactive_waypoint)
 
     # viz launch
     ld.add_action(declare_use_mapviz_cmd)
