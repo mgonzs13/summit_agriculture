@@ -50,8 +50,8 @@ def generate_launch_description():
 
     interactive_waypoint = LaunchDescription([
         Node(
-            package='summit_navigation',
-            executable='interactive_waypoint_follower.py',
+            package='summit_localization',
+            executable='interactive_waypoint_follower',
             name='waypoint_follower',
             output='screen',
         )
@@ -63,7 +63,7 @@ def generate_launch_description():
     # robot localization launch
     ld.add_action(robot_localization_cmd)
 
-    # ld.add_action(interactive_waypoint)
+    ld.add_action(interactive_waypoint)
 
     # viz launch
     ld.add_action(declare_use_mapviz_cmd)
