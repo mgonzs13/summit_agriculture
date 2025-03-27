@@ -63,7 +63,7 @@ def generate_launch_description():
             "Rtabmap/LoopThr": "0.11",
             # 0=TORO, 1=g2o, 2=GTSAM and 3=Ceres
             "Optimizer/Strategy": "2",
-            "Optimizer/GravitySigma": "0.0",
+            "Optimizer/GravitySigma": "0.3",
             "RGBD/Enabled": "true",
             "RGBD/OptimizeMaxError": "0.5",
             "RGBD/OptimizeFromGraphEnd": "true",
@@ -92,7 +92,8 @@ def generate_launch_description():
             "Vis/CorType": "0",
             # kNNFlannNaive=0, kNNFlannKdTree=1, kNNFlannLSH=2, kNNBruteForce=3, kNNBruteForceGPU=4, BruteForceCrossCheck=5, SuperGlue=6, GMS=7
             "Vis/CorNNType": "1",
-            "Grid/Sensor": "1",
+            # Create occupancy grid from selected sensor: 0=laser scan, 1=depth image(s) or 2=both laser scan and depth image(s).
+            "Grid/Sensor": "2",
             "Grid/DepthDecimation": "4",
             "Grid/RangeMin": "0.5",
             "Grid/RangeMax": "5.0",
@@ -105,6 +106,7 @@ def generate_launch_description():
             "Gird/RayTracing": "true",
             "Grid/3D": "true",
             "Grid/MapFrameProjection": "true",
+            "GridGlobal/FootprintRadius": "0.4",
             "GridGlobal/UpdateError": "0.01",
             "GridGlobal/MinSize": "100.0",
             "GridGlobal/Eroded": "true",

@@ -59,7 +59,7 @@ def generate_launch_description():
             "Odom/ResetCountdown": "1",
             "Odom/Holonomic": "true",
             # 0=No filtering 1=Kalman filtering 2=Particle filtering
-            "Odom/FilteringStrategy": "1",
+            "Odom/FilteringStrategy": "0",
             "Odom/ParticleSize": "500",
             "Odom/GuessMotion": "true",
             "Odom/AlignWithGround": "false",
