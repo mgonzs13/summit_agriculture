@@ -15,8 +15,8 @@
   <depend>rtabmap_ros</depend>
   <depend>robot_localization</depend>
   <depend>mapviz</depend>
-  <depend>mapviz-plugins</depend>
-  <depend>tile-map</depend>
+  <depend>mapviz_plugins</depend>
+  <depend>tile_map</depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>
