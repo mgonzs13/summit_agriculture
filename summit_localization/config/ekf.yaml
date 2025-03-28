@@ -27,7 +27,7 @@ ekf_filter_node:
       [
         true,
         true,
-        true,
+        false,
 
         false,
         false,

@@ -106,6 +106,7 @@ def generate_launch_description():
             "Gird/RayTracing": "true",
             "Grid/3D": "true",
             "Grid/MapFrameProjection": "true",
+            "Grid/MinGroundHeight": "0.2",
             "GridGlobal/FootprintRadius": "0.4",
             "GridGlobal/UpdateError": "0.01",
             "GridGlobal/MinSize": "100.0",
