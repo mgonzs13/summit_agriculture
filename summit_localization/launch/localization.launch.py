@@ -43,6 +43,13 @@ def generate_launch_description():
         description="Use simulation (Gazebo) clock if True",
     )
 
+    is_sim = LaunchConfiguration("is_sim")
+    is_sim_cmd = DeclareLaunchArgument(
+        "is_sim",
+        default_value="False",
+        description="Whether if use sim configuration",
+    )
+
     laser_filter_node_cmd = Node(
         package="robotnik_filters",
         executable="filter_node",
@@ -51,16 +58,14 @@ def generate_launch_description():
             ("~/input", "/robot/top_3d_laser/points"),
             ("~/output", "/robot/top_3d_laser/points_filtered"),
         ],
-        condition=IfCondition(PythonExpression([LaunchConfiguration("use_sim_time")])),
+        condition=IfCondition(PythonExpression([is_sim])),
     )
 
     camera_info_pub_cmd = Node(
         package="camera_info_pub",
         executable="camera_info_pub_node",
         name="camera_info_pub_node",
-        condition=UnlessCondition(
-            PythonExpression([LaunchConfiguration("use_sim_time")])
-        ),
+        condition=UnlessCondition(PythonExpression([is_sim])),
     )
 
     rgbd_odometry_cmd = IncludeLaunchDescription(
@@ -68,7 +73,7 @@ def generate_launch_description():
             os.path.join(pkg_localization, "launch", "rgbd_odometry.launch.py")
         ),
         launch_arguments={"use_sim_time": use_sim_time}.items(),
-        condition=IfCondition(PythonExpression([LaunchConfiguration("use_sim_time")])),
+        condition=IfCondition(PythonExpression([is_sim])),
     )
 
     rtabmap_cmd = IncludeLaunchDescription(
@@ -94,6 +99,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     ld.add_action(use_sim_time_cmd)
+    ld.add_action(is_sim_cmd)
     ld.add_action(laser_filter_node_cmd)
     ld.add_action(camera_info_pub_cmd)
     ld.add_action(rgbd_odometry_cmd)
