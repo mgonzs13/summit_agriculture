@@ -154,8 +154,9 @@ def generate_launch_description():
         arguments = ["--ros-args", "--log-level", "Warn"]
 
         if not slam_mode:
-            parameters[0]["Mem/IncrementalMemory"] = "False"
-            parameters[0]["Mem/InitWMWithAllNodes"] = "True"
+            parameters[0]["Mem/IncrementalMemory"] = "false"
+            parameters[0]["Mem/InitWMWithAllNodes"] = "true"
+            parameters[0]["RGBD/StartAtOrigin"] = "true"
         else:
             arguments.insert(0, "-d")
 
