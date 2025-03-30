@@ -10,7 +10,7 @@ ekf_filter_node:
 
     frequency: 30.0
     use_sim_time: false
-    two_d_mode: false
+    two_d_mode: true
     print_diagnostics: true
     debug: false
     permit_corrected_publication: false
@@ -54,15 +54,15 @@ ekf_filter_node:
       [
         true,
         true,
-        true,
-
-        false,
-        false,
         false,
 
         false,
+        false,
+        false,
+
         true,
         true,
+        false,
 
         false,
         false,
@@ -83,8 +83,8 @@ ekf_filter_node:
         false,
         false,
 
-        true,
-        true,
+        false,
+        false,
         true,
 
         false,
@@ -99,7 +99,7 @@ ekf_filter_node:
         false,
         false,
       ]
-    imu0_queue_size: 50
+    imu0_queue_size: 30
     imu0_differential: false
     imu0_relative: false
     imu0_remove_gravitational_acceleration: true
