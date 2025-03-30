@@ -43,6 +43,13 @@ def generate_launch_description():
         description="Use simulation (Gazebo) clock if True",
     )
 
+    slam_mode = LaunchConfiguration("slam_mode")
+    slam_mode_cmd = DeclareLaunchArgument(
+        "slam_mode",
+        default_value="True",
+        description="Whether to run in SLAM mode. Otherwise, it will run in Localization mode",
+    )
+
     is_sim = LaunchConfiguration("is_sim")
     is_sim_cmd = DeclareLaunchArgument(
         "is_sim",
@@ -80,7 +87,10 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(pkg_localization, "launch", "rtabmap.launch.py")
         ),
-        launch_arguments={"use_sim_time": use_sim_time}.items(),
+        launch_arguments={
+            "use_sim_time": use_sim_time,
+            "slam_mode": slam_mode,
+        }.items(),
     )
 
     lidarslam_cmd = IncludeLaunchDescription(
@@ -99,6 +109,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     ld.add_action(use_sim_time_cmd)
+    ld.add_action(slam_mode_cmd)
     ld.add_action(is_sim_cmd)
     ld.add_action(laser_filter_node_cmd)
     ld.add_action(camera_info_pub_cmd)

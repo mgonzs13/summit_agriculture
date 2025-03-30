@@ -21,10 +21,10 @@
 # SOFTWARE.
 
 
-from launch import LaunchDescription
+from launch import LaunchDescription, LaunchContext
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.conditions import IfCondition
 
 
@@ -37,98 +37,19 @@ def generate_launch_description():
         description="Use simulation (Gazebo) clock if True",
     )
 
+    slam_mode = LaunchConfiguration("slam_mode")
+    slam_mode_cmd = DeclareLaunchArgument(
+        "slam_mode",
+        default_value="True",
+        description="Whether to run in SLAM mode. Otherwise, it will run in Localization mode",
+    )
+
     launch_rtabmapviz = LaunchConfiguration("launch_rtabmapviz")
     launch_rtabmapviz_cmd = DeclareLaunchArgument(
         "launch_rtabmapviz",
         default_value="False",
         description="Wheather to launch rtabmapviz",
     )
-
-    parameters = [
-        {
-            "frame_id": "robot/base_footprint",
-            "subscribe_depth": True,
-            "subscribe_rgb": True,
-            "subscribe_scan_cloud": True,
-            "approx_sync": True,
-            "publish_tf": True,
-            "use_sim_time": use_sim_time,
-            "qos": 2,
-            "qos_image": 1,
-            "qos_camera_info": 1,
-            "qos_imu": 2,
-            "qos_gps": 1,
-            # Hypotheses selection
-            "Rtabmap/LoopGPS": "true",
-            "Rtabmap/LoopThr": "0.11",
-            "Rtabmap/CreateIntermediateNodes": "false",
-            # 0=TORO, 1=g2o, 2=GTSAM and 3=Ceres
-            "Optimizer/Strategy": "2",
-            "Optimizer/GravitySigma": "0.3",
-            "RGBD/Enabled": "true",
-            "RGBD/OptimizeMaxError": "0.5",
-            "RGBD/OptimizeFromGraphEnd": "false",
-            "RGBD/CreateOccupancyGrid": "false",
-            "RGBD/LoopClosureIdentityGuess": "false",
-            "RGBD/LocalBundleOnLoopClosure": "false",
-            "RGBD/ProximityPathMaxNeighbors": "1",
-            "VhEp/Enabled": "false",
-            "GFTT/MinDistance": "7.0",
-            "GFTT/QualityLevel": "0.001",
-            "GFTT/BlockSize": "3",
-            "GFTT/UseHarrisDetector": "true",
-            "GFTT/K": "0.04",
-            "BRIEF/Bytes": "64",
-            # 0=Vis, 1=Icp, 2=VisIcp
-            "Reg/Strategy": "2",
-            "Reg/Force3DoF": "true",
-            # Motion estimation approach: 0:3D->3D, 1:3D->2D (PnP), 2:2D->2D (Epipolar Geometry)
-            "Vis/EstimationType": "1",
-            "Vis/ForwardEstOnly": "true",
-            # 0=SURF 1=SIFT 2=ORB 3=FAST/FREAK 4=FAST/BRIEF 5=GFTT/FREAK 6=GFTT/BRIEF 7=BRISK 8=GFTT/ORB 9=KAZE 10=ORB-OCTREE 11=SuperPoint 12=SURF/FREAK 13=GFTT/DAISY 14=SURF/DAISY 15=PyDetector
-            "Vis/FeatureType": "8",
-            "Vis/DepthAsMask": "true",
-            "Vis/CorGuessWinSize": "40",
-            "Vis/MaxFeatures": "0",
-            "Vis/MinDepth": "0.0",
-            "Vis/MaxDepth": "0.0",
-            # ICP implementation: 0=Point Cloud Library, 1=libpointmatcher, 2=CCCoreLib (CloudCompare).
-            "Icp/Strategy": "1",
-            "Icp/MaxTranslation": "0.2",
-            "Icp/VoxelSize": "0.05",
-            "Icp/DownsamplingStep": "1",
-            "Icp/MaxCorrespondenceDistance": "0.1",
-            "Icp/Iterations": "30",
-            "Icp/Epsilon": "0.0",
-            "Icp/CorrespondenceRatio": "0.1",
-            "Icp/PointToPlane": "true",
-            # 0=Features Matching, 1=Optical Flow
-            "Vis/CorType": "0",
-            # kNNFlannNaive=0, kNNFlannKdTree=1, kNNFlannLSH=2, kNNBruteForce=3, kNNBruteForceGPU=4, BruteForceCrossCheck=5, SuperGlue=6, GMS=7
-            "Vis/CorNNType": "1",
-            # Create occupancy grid from selected sensor: 0=laser scan, 1=depth image(s) or 2=both laser scan and depth image(s).
-            "Grid/Sensor": "2",
-            "Grid/DepthDecimation": "4",
-            "Grid/RangeMin": "0.0",
-            "Grid/RangeMax": "5.0",
-            "Grid/MinClusterSize": "10",
-            "Grid/MaxGroundAngle": "60",
-            "Grid/NormalK": "20",
-            "Grid/ClusterRadius": "0.1",
-            "Grid/CellSize": "0.1",
-            "Grid/FlatObstacleDetected": "false",
-            "Gird/RayTracing": "true",
-            "Grid/3D": "false",
-            "Grid/MapFrameProjection": "true",
-            "Grid/MinGroundHeight": "0.1",
-            "Grid/DepthRoiRatios": "0.0 0.0 0.0 0.1",
-            "GridGlobal/FootprintRadius": "0.4",
-            "GridGlobal/UpdateError": "0.01",
-            "GridGlobal/MinSize": "0.0",
-            "GridGlobal/Eroded": "true",
-            "GridGlobal/FloodFillDepth": "16",
-        }
-    ]
 
     remappings = [
         ("rgb/image", "/robot/zed2/zed_node/rgb/image_rect_color"),
@@ -141,24 +62,125 @@ def generate_launch_description():
         ("goal", "goal_pose"),
     ]
 
-    return LaunchDescription(
-        [
-            use_sim_time_cmd,
-            launch_rtabmapviz_cmd,
+    def run_rtabmap(context: LaunchContext, slam_mode):
+        slam_mode = eval(context.perform_substitution(slam_mode))
+
+        parameters = [
+            {
+                "frame_id": "robot/base_footprint",
+                "subscribe_depth": True,
+                "subscribe_rgb": True,
+                "subscribe_scan_cloud": True,
+                "approx_sync": True,
+                "publish_tf": True,
+                "use_sim_time": use_sim_time,
+                "qos": 2,
+                "qos_image": 1,
+                "qos_camera_info": 1,
+                "qos_imu": 2,
+                "qos_gps": 1,
+                # Hypotheses selection
+                "Rtabmap/LoopGPS": "true",
+                "Rtabmap/LoopThr": "0.11",
+                "Rtabmap/CreateIntermediateNodes": "false",
+                # 0=TORO, 1=g2o, 2=GTSAM and 3=Ceres
+                "Optimizer/Strategy": "2",
+                "Optimizer/GravitySigma": "0.3",
+                "RGBD/Enabled": "true",
+                "RGBD/OptimizeMaxError": "0.5",
+                "RGBD/OptimizeFromGraphEnd": "false",
+                "RGBD/CreateOccupancyGrid": "false",
+                "RGBD/LoopClosureIdentityGuess": "false",
+                "RGBD/LocalBundleOnLoopClosure": "false",
+                "RGBD/ProximityPathMaxNeighbors": "1",
+                "VhEp/Enabled": "false",
+                "GFTT/MinDistance": "7.0",
+                "GFTT/QualityLevel": "0.001",
+                "GFTT/BlockSize": "3",
+                "GFTT/UseHarrisDetector": "true",
+                "GFTT/K": "0.04",
+                "BRIEF/Bytes": "64",
+                # 0=Vis, 1=Icp, 2=VisIcp
+                "Reg/Strategy": "2",
+                "Reg/Force3DoF": "true",
+                # Motion estimation approach: 0:3D->3D, 1:3D->2D (PnP), 2:2D->2D (Epipolar Geometry)
+                "Vis/EstimationType": "1",
+                "Vis/ForwardEstOnly": "true",
+                # 0=SURF 1=SIFT 2=ORB 3=FAST/FREAK 4=FAST/BRIEF 5=GFTT/FREAK 6=GFTT/BRIEF 7=BRISK 8=GFTT/ORB 9=KAZE 10=ORB-OCTREE 11=SuperPoint 12=SURF/FREAK 13=GFTT/DAISY 14=SURF/DAISY 15=PyDetector
+                "Vis/FeatureType": "8",
+                "Vis/DepthAsMask": "true",
+                "Vis/CorGuessWinSize": "40",
+                "Vis/MaxFeatures": "0",
+                "Vis/MinDepth": "0.0",
+                "Vis/MaxDepth": "0.0",
+                # ICP implementation: 0=Point Cloud Library, 1=libpointmatcher, 2=CCCoreLib (CloudCompare).
+                "Icp/Strategy": "1",
+                "Icp/MaxTranslation": "0.2",
+                "Icp/VoxelSize": "0.05",
+                "Icp/DownsamplingStep": "1",
+                "Icp/MaxCorrespondenceDistance": "0.1",
+                "Icp/Iterations": "30",
+                "Icp/Epsilon": "0.0",
+                "Icp/CorrespondenceRatio": "0.1",
+                "Icp/PointToPlane": "true",
+                # 0=Features Matching, 1=Optical Flow
+                "Vis/CorType": "0",
+                # kNNFlannNaive=0, kNNFlannKdTree=1, kNNFlannLSH=2, kNNBruteForce=3, kNNBruteForceGPU=4, BruteForceCrossCheck=5, SuperGlue=6, GMS=7
+                "Vis/CorNNType": "1",
+                # Create occupancy grid from selected sensor: 0=laser scan, 1=depth image(s) or 2=both laser scan and depth image(s).
+                "Grid/Sensor": "2",
+                "Grid/DepthDecimation": "4",
+                "Grid/RangeMin": "0.0",
+                "Grid/RangeMax": "5.0",
+                "Grid/MinClusterSize": "10",
+                "Grid/MaxGroundAngle": "60",
+                "Grid/NormalK": "20",
+                "Grid/ClusterRadius": "0.1",
+                "Grid/CellSize": "0.1",
+                "Grid/FlatObstacleDetected": "false",
+                "Gird/RayTracing": "true",
+                "Grid/3D": "false",
+                "Grid/MapFrameProjection": "true",
+                "Grid/MinGroundHeight": "0.1",
+                "Grid/DepthRoiRatios": "0.0 0.0 0.0 0.1",
+                "GridGlobal/FootprintRadius": "0.4",
+                "GridGlobal/UpdateError": "0.01",
+                "GridGlobal/MinSize": "0.0",
+                "GridGlobal/Eroded": "true",
+                "GridGlobal/FloodFillDepth": "16",
+            }
+        ]
+
+        arguments = ["--ros-args", "--log-level", "Warn"]
+
+        if not slam_mode:
+            parameters[0]["Mem/IncrementalMemory"] = "False"
+            parameters[0]["Mem/InitWMWithAllNodes"] = "True"
+        else:
+            arguments.insert(0, "-d")
+
+        return [
             Node(
                 package="rtabmap_slam",
                 executable="rtabmap",
                 output="log",
                 parameters=parameters,
                 remappings=remappings,
-                arguments=["-d", "--ros-args", "--log-level", "Warn"],
-            ),
+                arguments=arguments,
+            )
+        ]
+
+    return LaunchDescription(
+        [
+            use_sim_time_cmd,
+            slam_mode_cmd,
+            launch_rtabmapviz_cmd,
+            OpaqueFunction(function=run_rtabmap, args=[slam_mode]),
             Node(
                 condition=IfCondition(launch_rtabmapviz),
                 package="rtabmap_viz",
                 executable="rtabmap_viz",
                 output="screen",
-                parameters=parameters,
                 remappings=remappings,
                 arguments=["--ros-args", "--log-level", "Warn"],
             ),
