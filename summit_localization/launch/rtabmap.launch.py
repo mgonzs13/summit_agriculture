@@ -54,8 +54,10 @@ def generate_launch_description():
     remappings = [
         ("rgb/image", "/robot/zed2/zed_node/rgb/image_rect_color"),
         ("rgb/camera_info", "/robot/zed2/zed_node/camera_info"),
+        ("depth/camera_info", "/robot/zed2/zed_node/camera_info"),
         ("depth/image", "/robot/zed2/zed_node/depth/depth_registered"),
-        ("/scan_cloud", "/robot/top_3d_laser/points_filtered"),
+        ("scan_cloud", "/robot/top_3d_laser/points_filtered"),
+        ("cloud", "/robot/top_3d_laser/points_filtered"),
         ("imu", "/robot/zed2/zed_node/imu/data"),
         ("gps/fix", "/robot/gps/fix"),
         ("odom", "/odom"),
@@ -67,6 +69,7 @@ def generate_launch_description():
 
         parameters = [
             {
+                "map_frame_id": "map",
                 "frame_id": "robot/base_footprint",
                 "subscribe_depth": True,
                 "subscribe_rgb": True,
@@ -134,12 +137,13 @@ def generate_launch_description():
                 "Grid/RangeMax": "5.0",
                 "Grid/MinClusterSize": "10",
                 "Grid/MaxGroundAngle": "60",
+                "Grid/NormalsSegmentation": "true",
                 "Grid/NormalK": "20",
                 "Grid/ClusterRadius": "0.1",
                 "Grid/CellSize": "0.1",
                 "Grid/FlatObstacleDetected": "false",
                 "Gird/RayTracing": "true",
-                "Grid/3D": "false",
+                "Grid/3D": "true",
                 "Grid/MapFrameProjection": "true",
                 "Grid/MinGroundHeight": "0.1",
                 "Grid/DepthRoiRatios": "0.0 0.0 0.0 0.1",
@@ -162,13 +166,21 @@ def generate_launch_description():
 
         return [
             Node(
+                package="rtabmap_util",
+                executable="obstacles_detection",
+                output="log",
+                parameters=parameters,
+                remappings=remappings,
+                arguments=arguments,
+            ),
+            Node(
                 package="rtabmap_slam",
                 executable="rtabmap",
                 output="log",
                 parameters=parameters,
                 remappings=remappings,
                 arguments=arguments,
-            )
+            ),
         ]
 
     return LaunchDescription(
