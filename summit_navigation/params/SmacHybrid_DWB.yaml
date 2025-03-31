@@ -162,30 +162,20 @@ local_costmap:
         enabled: True
         footprint_clearing_enabled: true
         max_obstacle_height: 3.0
+        min_obstacle_height: 0.1
         publish_voxel_map: True
         origin_z: 0.0
         z_resolution: 0.05
         z_voxels: 16
         unknown_threshold: 15
-        mark_threshold: 0
-        observation_sources: front_scan # rgbd_camera
+        mark_threshold: 3
+        observation_sources: front_scan
         front_scan:
           topic: /robot/top_3d_laser/points_filtered
           max_obstacle_height: 3.0
-          min_obstacle_height: 0.5
+          min_obstacle_height: 0.1
           obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
-          raytrace_max_range: 3.0
-          raytrace_min_range: 0.0
-          clearing: True
-          marking: True
-          data_type: PointCloud2
-        rgbd_camera:
-          topic: /robot/zed2/point_cloud/cloud_registered
-          max_obstacle_height: 3.0
-          min_obstacle_height: 0.2
-          obstacle_max_range: 2.5
-          obstacle_min_range: 0.0
+          obstacle_min_range: 0.35
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           clearing: True
