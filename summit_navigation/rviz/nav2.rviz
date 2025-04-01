@@ -38,17 +38,9 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        front_left_wheel_link:
-          Value: true
-        front_right_wheel_link:
-          Value: true
         map:
           Value: true
         odom:
-          Value: true
-        rear_left_wheel_link:
-          Value: true
-        rear_right_wheel_link:
           Value: true
         robot/antenna_link:
           Value: true
@@ -58,37 +50,41 @@ Visualization Manager:
           Value: true
         robot/base_link:
           Value: true
-        robot/front_camera_base_link:
+        robot/front_rgbd_camera_base_link:
           Value: true
-        robot/front_camera_depth_frame:
+        robot/front_rgbd_camera_depth_frame:
           Value: true
-        robot/front_camera_depth_optical_frame:
+        robot/front_rgbd_camera_depth_optical_frame:
           Value: true
-        robot/front_camera_imu_frame:
+        robot/front_rgbd_camera_left_camera_frame:
           Value: true
-        robot/front_camera_left_camera_frame:
+        robot/front_rgbd_camera_left_camera_optical_frame:
           Value: true
-        robot/front_camera_left_camera_optical_frame:
+        robot/front_rgbd_camera_right_camera_frame:
           Value: true
-        robot/front_camera_right_camera_frame:
+        robot/front_rgbd_camera_right_camera_optical_frame:
           Value: true
-        robot/front_camera_right_camera_optical_frame:
+        robot/gps_base_link:
           Value: true
-        robot/front_laser_base_link:
+        robot/gps_mast_base_link:
           Value: true
-        robot/front_laser_link:
+        robot/imu_link:
           Value: true
-        robot/front_laser_structure_robosense:
+        robot/top_3d_laser_base_link:
           Value: true
-        robot/gps/base_link:
+        robot/top_3d_laser_link:
           Value: true
-        robot/gps/link:
+        zed2_camera_center:
           Value: true
-        robot/gps_link:
+        zed2_imu_link:
           Value: true
-        robot/imu/base_link:
+        zed2_left_camera_frame:
           Value: true
-        robot/imu/link:
+        zed2_left_camera_optical_frame:
+          Value: true
+        zed2_right_camera_frame:
+          Value: true
+        zed2_right_camera_optical_frame:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -100,40 +96,36 @@ Visualization Manager:
           odom:
             robot/base_footprint:
               robot/base_link:
-                front_left_wheel_link:
-                  {}
-                front_right_wheel_link:
-                  {}
-                rear_left_wheel_link:
-                  {}
-                rear_right_wheel_link:
-                  {}
                 robot/antenna_link:
                   {}
                 robot/base_docking_contact_link:
                   {}
-                robot/front_camera_base_link:
-                  robot/front_camera_depth_frame:
-                    robot/front_camera_depth_optical_frame:
+                robot/front_rgbd_camera_base_link:
+                  robot/front_rgbd_camera_depth_frame:
+                    robot/front_rgbd_camera_depth_optical_frame:
                       {}
-                  robot/front_camera_imu_frame:
+                  robot/front_rgbd_camera_left_camera_frame:
+                    robot/front_rgbd_camera_left_camera_optical_frame:
+                      {}
+                  robot/front_rgbd_camera_right_camera_frame:
+                    robot/front_rgbd_camera_right_camera_optical_frame:
+                      {}
+                  zed2_camera_center:
+                    zed2_left_camera_frame:
+                      zed2_imu_link:
+                        {}
+                      zed2_left_camera_optical_frame:
+                        {}
+                    zed2_right_camera_frame:
+                      zed2_right_camera_optical_frame:
+                        {}
+                robot/gps_mast_base_link:
+                  robot/gps_base_link:
                     {}
-                  robot/front_camera_left_camera_frame:
-                    robot/front_camera_left_camera_optical_frame:
-                      {}
-                  robot/front_camera_right_camera_frame:
-                    robot/front_camera_right_camera_optical_frame:
-                      {}
-                robot/front_laser_structure_robosense:
-                  robot/front_laser_base_link:
-                    robot/front_laser_link:
-                      {}
-                robot/gps_link:
-                  robot/gps/base_link:
-                    robot/gps/link:
-                      {}
-                robot/imu/base_link:
-                  robot/imu/link:
+                robot/imu_link:
+                  {}
+                robot/top_3d_laser_base_link:
+                  robot/top_3d_laser_link:
                     {}
       Update Interval: 0
       Value: true
@@ -155,114 +147,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        front_left_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        front_right_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rear_left_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rear_right_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot/antenna_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot/base_docking_contact_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/base_footprint:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot/front_camera_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot/front_camera_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/front_camera_depth_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/front_camera_imu_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/front_camera_left_camera_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/front_camera_left_camera_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/front_camera_right_camera_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/front_camera_right_camera_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/front_laser_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot/front_laser_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/front_laser_structure_robosense:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot/gps/base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot/gps/link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot/gps_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot/imu/base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot/imu/link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
       Mass Properties:
         Inertia: false
         Mass: false
@@ -282,7 +166,7 @@ Visualization Manager:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
-        Reliability Policy: Best Effort
+        Reliability Policy: Reliable
         Value: /robot/zed2/zed_node/rgb/image_rect_color
       Value: true
     - Alpha: 1
@@ -577,25 +461,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 14.760162353515625
+      Distance: 31.611303329467773
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.645756721496582
-        Y: 0.5777225494384766
-        Z: 0.0008497238159179688
+        X: 3.158712148666382
+        Y: -31.012937545776367
+        Z: 8.975814819335938
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8627883791923523
+      Pitch: 1.2227880954742432
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.570781707763672
+      Yaw: 5.108966827392578
     Saved: ~
 Window Geometry:
   Displays:
