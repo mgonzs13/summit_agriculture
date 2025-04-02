@@ -40,7 +40,9 @@ def generate_launch_description():
     )
 
     params_file = os.path.join(
-        get_package_share_directory("summit_localization"), "config", "ekf.yaml"
+        get_package_share_directory("summit_localization"),
+        "config",
+        "dual_ekf_navsat.yaml",
     )
 
     param_substitutions = {"use_sim_time": use_sim_time}
@@ -49,19 +51,50 @@ def generate_launch_description():
         source_file=params_file, param_rewrites=param_substitutions, convert_types=True
     )
 
-    ekf_cmd = Node(
+    local_ekf_cmd = Node(
         package="robot_localization",
         executable="ekf_node",
-        name="ekf_filter_node",
+        name="ekf_filter_node_odom",
         output="log",
         parameters=[configured_params],
         remappings=[
-            ("odometry/filtered", "/odom"),
-            ("accel/filtered", "/accel"),
+            ("odometry/filtered", "/local_odom"),
+            ("accel/filtered", "/local_accel"),
+        ],
+    )
+
+    global_ekf_cmd = Node(
+        package="robot_localization",
+        executable="ekf_node",
+        name="ekf_filter_node_map",
+        output="log",
+        parameters=[configured_params],
+        remappings=[
+            ("odometry/filtered", "/global_odom"),
+            ("accel/filtered", "/global_accel"),
+        ],
+    )
+
+    navsat_cmd = Node(
+        package="robot_localization",
+        executable="navsat_transform_node",
+        name="navsat_transform",
+        output="screen",
+        parameters=[configured_params],
+        remappings=[
+            # Subscriptions
+            ("imu/data", "/robot/zed2/zed_node/imu/data"),
+            ("gps/fix", "/robot/gps/fix"),
+            ("odometry/filtered", "global_odom"),
+            # Publishers
+            ("odometry/gps", "gps_odom"),
+            ("gps/filtered", "gps/filtered"),
         ],
     )
 
     ld = LaunchDescription()
     ld.add_action(use_sim_time_cmd)
-    ld.add_action(ekf_cmd)
+    ld.add_action(local_ekf_cmd)
+    ld.add_action(global_ekf_cmd)
+    ld.add_action(navsat_cmd)
     return ld
