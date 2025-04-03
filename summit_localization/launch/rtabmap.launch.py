@@ -37,6 +37,13 @@ def generate_launch_description():
         description="Use simulation (Gazebo) clock if True",
     )
 
+    use_gps_map = LaunchConfiguration("use_gps_map")
+    use_gps_map_cmd = DeclareLaunchArgument(
+        "use_gps_map",
+        default_value="False",
+        description="Use GPS map or RTAB-Map map frame",
+    )
+
     slam_mode = LaunchConfiguration("slam_mode")
     slam_mode_cmd = DeclareLaunchArgument(
         "slam_mode",
@@ -60,12 +67,16 @@ def generate_launch_description():
         ("cloud", "/robot/top_3d_laser/points_filtered"),
         ("imu", "/robot/zed2/zed_node/imu/data"),
         ("gps/fix", "/robot/gps/fix"),
-        ("odom", "/odom"),
+        ("odom", "odom"),
         ("goal", "goal_pose"),
     ]
 
-    def run_rtabmap(context: LaunchContext, slam_mode):
+    def run_rtabmap(context: LaunchContext, slam_mode, use_gps_map):
         slam_mode = eval(context.perform_substitution(slam_mode))
+        use_gps_map = eval(context.perform_substitution(use_gps_map))
+
+        if use_gps_map:
+            remappings[-2] = ("odom", "/global_odom")
 
         parameters = [
             {
@@ -75,7 +86,7 @@ def generate_launch_description():
                 "subscribe_rgb": True,
                 "subscribe_scan_cloud": True,
                 "approx_sync": True,
-                "publish_tf": True,
+                "publish_tf": not use_gps_map,
                 "use_sim_time": use_sim_time,
                 "qos": 2,
                 "qos_image": 1,
@@ -143,7 +154,7 @@ def generate_launch_description():
                 "Grid/CellSize": "0.1",
                 "Grid/FlatObstacleDetected": "false",
                 "Grid/RayTracing": "true",
-                "Grid/3D": "false",
+                "Grid/3D": "true",
                 "Grid/MapFrameProjection": "true",
                 "Grid/MaxGroundHeight": "0.1",
                 "Grid/MaxObstacleHeight": "1.0",
@@ -189,7 +200,8 @@ def generate_launch_description():
             use_sim_time_cmd,
             slam_mode_cmd,
             launch_rtabmapviz_cmd,
-            OpaqueFunction(function=run_rtabmap, args=[slam_mode]),
+            use_gps_map_cmd,
+            OpaqueFunction(function=run_rtabmap, args=[slam_mode, use_gps_map]),
             Node(
                 condition=IfCondition(launch_rtabmapviz),
                 package="rtabmap_viz",

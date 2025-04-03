@@ -109,21 +109,8 @@ def generate_launch_description():
         launch_arguments={
             "use_sim_time": "True",
             "is_sim": "True",
+            "use_gps": use_gps,
         }.items(),
-    )
-
-    summit_gps_localization_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(
-                get_package_share_directory("summit_localization"),
-                "launch",
-                "summit_gps_waypoint_follower.launch.py",
-            )
-        ),
-        launch_arguments={
-            "use_mapviz": "True",
-        }.items(),
-        condition=IfCondition(use_gps),
     )
 
     summit_navigation_cmd = IncludeLaunchDescription(
@@ -147,7 +134,6 @@ def generate_launch_description():
     ld.add_action(use_gps_cmd)
 
     ld.add_action(summit_localization_cmd)
-    ld.add_action(summit_gps_localization_cmd)
     ld.add_action(summit_navigation_cmd)
 
     ld.add_action(gazebo_client_cmd)

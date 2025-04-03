@@ -26,8 +26,10 @@ from launch import LaunchDescription
 from ament_index_python.packages import get_package_share_directory
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
-from launch.actions import DeclareLaunchArgument
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from nav2_common.launch import RewrittenYaml
+from launch.conditions import IfCondition
 
 
 def generate_launch_description():
@@ -37,6 +39,13 @@ def generate_launch_description():
         "use_sim_time",
         default_value="False",
         description="Use simulation (Gazebo) clock if True",
+    )
+
+    launch_mapviz = LaunchConfiguration("launch_mapviz")
+    launch_mapviz_cmd = DeclareLaunchArgument(
+        "launch_mapviz",
+        default_value="False",
+        description="Whether to start mapviz",
     )
 
     params_file = os.path.join(
@@ -92,9 +101,23 @@ def generate_launch_description():
         ],
     )
 
+    mapviz_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                os.path.join(
+                    get_package_share_directory("summit_localization"), "launch"
+                ),
+                "mapviz.launch.py",
+            )
+        ),
+        condition=IfCondition(launch_mapviz),
+    )
+
     ld = LaunchDescription()
     ld.add_action(use_sim_time_cmd)
+    ld.add_action(launch_mapviz_cmd)
     ld.add_action(local_ekf_cmd)
     ld.add_action(global_ekf_cmd)
     ld.add_action(navsat_cmd)
+    ld.add_action(mapviz_cmd)
     return ld

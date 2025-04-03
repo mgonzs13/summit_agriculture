@@ -54,7 +54,14 @@ def generate_launch_description():
     is_sim_cmd = DeclareLaunchArgument(
         "is_sim",
         default_value="False",
-        description="Whether if use sim configuration",
+        description="Whether use sim configuration",
+    )
+
+    use_gps = LaunchConfiguration("use_gps")
+    use_gps_cmd = DeclareLaunchArgument(
+        "use_gps",
+        default_value="False",
+        description="Whether use GPS in localization",
     )
 
     laser_filter_node_cmd = Node(
@@ -90,13 +97,8 @@ def generate_launch_description():
         launch_arguments={
             "use_sim_time": use_sim_time,
             "slam_mode": slam_mode,
+            "use_gps_map": use_gps,
         }.items(),
-    )
-
-    lidarslam_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_localization, "launch", "lidarslam.launch.py")
-        ),
     )
 
     ekf_cmd = IncludeLaunchDescription(
@@ -104,6 +106,23 @@ def generate_launch_description():
             os.path.join(pkg_localization, "launch", "ekf.launch.py")
         ),
         launch_arguments={"use_sim_time": use_sim_time}.items(),
+        condition=UnlessCondition(PythonExpression([use_gps])),
+    )
+
+    dual_ekf_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_localization, "launch", "dual_ekf.launch.py")
+        ),
+        launch_arguments={"use_sim_time": use_sim_time}.items(),
+        condition=IfCondition(PythonExpression([use_gps])),
+    )
+
+    waypoint_follower_cmd = Node(
+        package="summit_localization",
+        executable="interactive_waypoint_follower",
+        name="waypoint_follower",
+        output="screen",
+        condition=IfCondition(PythonExpression([use_gps])),
     )
 
     ld = LaunchDescription()
@@ -111,11 +130,13 @@ def generate_launch_description():
     ld.add_action(use_sim_time_cmd)
     ld.add_action(slam_mode_cmd)
     ld.add_action(is_sim_cmd)
+    ld.add_action(use_gps_cmd)
     ld.add_action(laser_filter_node_cmd)
     ld.add_action(camera_info_pub_cmd)
     ld.add_action(rgbd_odometry_cmd)
     ld.add_action(rtabmap_cmd)
-    # ld.add_action(lidarslam_cmd)
     ld.add_action(ekf_cmd)
+    ld.add_action(dual_ekf_cmd)
+    ld.add_action(waypoint_follower_cmd)
 
     return ld
