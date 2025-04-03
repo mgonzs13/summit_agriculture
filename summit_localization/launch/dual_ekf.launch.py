@@ -83,7 +83,7 @@ def generate_launch_description():
         parameters=[configured_params],
         remappings=[
             # Subscriptions
-            ("imu/data", "/robot/zed2/zed_node/imu/data"),
+            ("imu", "/robot/zed2/zed_node/imu/data"),
             ("gps/fix", "/robot/gps/fix"),
             ("odometry/filtered", "global_odom"),
             # Publishers
