@@ -1,11 +1,9 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
   <world name="default">
-   
     <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
       <update_rate>1.0</update_rate>
     </plugin>
-
     <light name="sun" type="directional">
       <pose>0 0 10 0 0 0</pose>
       <diffuse>1 1 1 1</diffuse>
@@ -17,27 +15,32 @@
         <quadratic>0</quadratic>
       </attenuation>
     </light>
-
     <physics type="ode">
       <max_step_size>0.001</max_step_size>
       <gravity>0 0 -9.8</gravity>
-      <atmosphere type="adiabatic"/>  
+      <atmosphere type="adiabatic"/>
     </physics>
-    
     <!-- Incluir el entorno n1 -->
     <include>
       <uri>model://agrarias</uri>
     </include>
-
     <!-- Coordenadas GPS del mundo -->
-    <spherical_coordinates> 
+    <spherical_coordinates>
       <!-- Coordenadas GPS del mundo -->
       <surface_model>EARTH_WGS84</surface_model>
-      <latitude_deg>42.58232</latitude_deg>  
-      <longitude_deg>-5.59312</longitude_deg>  
-      <elevation>880.0</elevation>  <!-- Elevación en metros -->
-      <heading_deg>0</heading_deg>  <!-- Dirección de la orientación del mapa -->
+      <latitude_deg>42.58232</latitude_deg>
+      <longitude_deg>-5.59312</longitude_deg>
+      <elevation>880.0</elevation>
+      <!-- Elevación en metros -->
+      <heading_deg>0</heading_deg>
+      <!-- Dirección de la orientación del mapa -->
     </spherical_coordinates>
-
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>-51.2035 -129.412 14.031 -0 0.389734 -0.335224</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
   </world>
 </sdf>

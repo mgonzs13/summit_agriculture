@@ -40,7 +40,7 @@ def generate_launch_description():
             "world": os.path.join(pkg_path, "worlds", "campus.world"),
             "pos_x": "-169",
             "pos_y": "-126",
-            "pos_z": "28.0",
+            "pos_z": "27.45",
             "use_gps": "True",
             "pause_gz": "False",
         }.items(),
