@@ -13,6 +13,7 @@
   <depend>rclpy</depend>
   <depend>rtabmap</depend>
   <depend>rtabmap_ros</depend>
+  <depend>imu_compass</depend>
   <depend>robot_localization</depend>
   <depend>mapviz</depend>
   <depend>mapviz_plugins</depend>
