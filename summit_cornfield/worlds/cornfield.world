@@ -124,7 +124,7 @@
       <latitude_deg>42.6129</latitude_deg>
       <longitude_deg>-5.56566</longitude_deg>
       <elevation>880</elevation>
-      <heading_deg>180</heading_deg>
+      <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <gravity>0 0 -9.8066</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
