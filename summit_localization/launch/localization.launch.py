@@ -117,6 +117,14 @@ def generate_launch_description():
         condition=IfCondition(PythonExpression([use_gps])),
     )
 
+    imu_compass_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_localization, "launch", "imu_compass.launch.py")
+        ),
+        launch_arguments={"use_sim_time": use_sim_time}.items(),
+        condition=IfCondition(PythonExpression([use_gps])),
+    )
+
     waypoint_follower_cmd = Node(
         package="summit_localization",
         executable="interactive_waypoint_follower",
@@ -137,6 +145,7 @@ def generate_launch_description():
     ld.add_action(rtabmap_cmd)
     ld.add_action(ekf_cmd)
     ld.add_action(dual_ekf_cmd)
+    ld.add_action(imu_compass_cmd)
     ld.add_action(waypoint_follower_cmd)
 
     return ld
