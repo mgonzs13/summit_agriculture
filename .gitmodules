@@ -13,3 +13,6 @@
 [submodule "imu_compass"]
 	path = imu_compass
 	url = git@github.com:mgonzs13/imu_compass.git
+[submodule "hector_gazebo"]
+	path = hector_gazebo
+	url = git@github.com:mgonzs13/hector_gazebo.git
