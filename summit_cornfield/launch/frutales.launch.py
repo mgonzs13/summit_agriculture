@@ -38,9 +38,10 @@ def generate_launch_description():
         ),
         launch_arguments={
             "world": os.path.join(pkg_path, "worlds", "frutales.world"),
-            "pos_x": "-250",
-            "pos_y": "20",
-            "pos_z": "2.5",
+            "pos_x": "-258",
+            "pos_y": "4.0",
+            "pos_z": "2.35",
+            "yaw": "-1.25",
             "use_gps": "True",
             "pause_gz": "false",
         }.items(),

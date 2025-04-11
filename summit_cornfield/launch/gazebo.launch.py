@@ -95,6 +95,7 @@ def generate_launch_description():
             "pos_x": LaunchConfiguration("pos_x", default="0.0"),
             "pos_y": LaunchConfiguration("pos_y", default="0.0"),
             "pos_z": LaunchConfiguration("pos_z", default="0.0"),
+            "yaw": LaunchConfiguration("yaw", default="0.0"),
         }.items(),
     )
 
