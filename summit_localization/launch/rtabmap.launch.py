@@ -64,7 +64,6 @@ def generate_launch_description():
         ("depth/camera_info", "/robot/zed2/zed_node/camera_info"),
         ("depth/image", "/robot/zed2/zed_node/depth/depth_registered"),
         ("scan_cloud", "/robot/top_3d_laser/points_filtered"),
-        ("cloud", "/robot/top_3d_laser/points_filtered"),
         ("imu", "/robot/zed2/zed_node/imu/data"),
         ("gps/fix", "/robot/gps/fix"),
         ("odom", "odom"),
@@ -161,7 +160,7 @@ def generate_launch_description():
                 "Grid/DepthRoiRatios": "0.0 0.0 0.0 0.1",
                 "GridGlobal/FootprintRadius": "0.4",
                 "GridGlobal/UpdateError": "0.01",
-                "GridGlobal/MinSize": "0.0",
+                "GridGlobal/MinSize": "100.0",
                 "GridGlobal/Eroded": "true",
                 "GridGlobal/FloodFillDepth": "16",
             }
@@ -180,9 +179,29 @@ def generate_launch_description():
             Node(
                 package="rtabmap_util",
                 executable="obstacles_detection",
+                name="lidar3d_obstacles_detection",
                 output="log",
                 parameters=parameters,
-                remappings=remappings,
+                remappings=remappings
+                + [
+                    ("cloud", "/robot/top_3d_laser/points_filtered"),
+                    ("obstacles", "/lidar3d_obstacles"),
+                    ("ground", "/lidar3d_ground"),
+                ],
+                arguments=arguments,
+            ),
+            Node(
+                package="rtabmap_util",
+                executable="obstacles_detection",
+                name="rgbd_obstacles_detection",
+                output="log",
+                parameters=parameters,
+                remappings=remappings
+                + [
+                    ("cloud", "/robot/zed2/zed_node/point_cloud/cloud_registered"),
+                    ("obstacles", "/rgbd_obstacles"),
+                    ("ground", "/rgbd_ground"),
+                ],
                 arguments=arguments,
             ),
             Node(

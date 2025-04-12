@@ -168,7 +168,7 @@ local_costmap:
         z_voxels: 16
         unknown_threshold: 15
         mark_threshold: 3
-        observation_sources: obstacles ground # rgbd_camera
+        observation_sources: obstacles ground rgbd_camera
         obstacles:
           topic: /obstacles
           max_obstacle_height: 3.0

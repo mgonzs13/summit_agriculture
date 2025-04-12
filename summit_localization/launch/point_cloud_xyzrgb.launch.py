@@ -21,13 +21,10 @@
 # SOFTWARE.
 
 
-import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import LaunchConfiguration
 from launch.actions import DeclareLaunchArgument
-from nav2_common.launch import RewrittenYaml
 
 
 def generate_launch_description():
@@ -38,28 +35,42 @@ def generate_launch_description():
         description="Use simulation (Gazebo) clock if True",
     )
 
-    params_file = os.path.join(
-        get_package_share_directory("summit_localization"), "config", "imu_compass.yaml"
-    )
-
-    param_substitutions = {"use_sim_time": use_sim_time}
-
-    configured_params = RewrittenYaml(
-        source_file=params_file, param_rewrites=param_substitutions, convert_types=True
-    )
+    parameters = [
+        {
+            "use_sim_time": use_sim_time,
+            "approx_sync": True,
+            "approx_sync_max_interval": 0.0,
+            "sync_queue_size": 10,
+            "decimation": 1,
+            "filter_nans": False,
+            "max_depth": 0.0,
+            "min_depth": 0.0,
+            "noise_filter_min_neighbors": 5,
+            "noise_filter_radius": 0.0,
+            "normal_k": 0,
+            "normal_radius": 0.0,
+            "qos": 0,
+            "qos_camera_info": 0,
+            "queue_size": -1,
+            "topic_queue_size": 1,
+            "roi_ratios": "",
+            "voxel_size": 0.0,
+        }
+    ]
 
     return LaunchDescription(
         [
             use_sim_time_cmd,
             Node(
-                package="imu_compass",
-                executable="imu_compass_node",
-                name="imu_compass_node",
-                parameters=[configured_params],
+                package="rtabmap_util",
+                executable="point_cloud_xyzrgb",
+                parameters=parameters,
                 output="screen",
                 remappings=[
-                    ("/imu/data", "/robot/zed2/zed_node/imu/data"),
-                    ("/imu/mag", "/robot/zed2/zed_node/imu/mag"),
+                    ("rgb/image", "/robot/zed2/zed_node/rgb/image_rect_color"),
+                    ("rgb/camera_info", "/robot/zed2/zed_node/camera_info"),
+                    ("depth/image", "/robot/zed2/zed_node/depth/depth_registered"),
+                    ("cloud", "/robot/zed2/zed_node/point_cloud/cloud_registered"),
                 ],
             ),
         ]
