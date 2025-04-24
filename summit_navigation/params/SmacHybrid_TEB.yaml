@@ -146,7 +146,7 @@ controller_server:
       weight_adapt_factor: 2.0
 
       # Homotopy Class Planner
-      enable_homotopy_class_planning: True
+      enable_homotopy_class_planning: False
       enable_multithreading: True
       max_number_classes: 4
       selection_cost_hysteresis: 5.0
