@@ -95,11 +95,11 @@ controller_server:
       debug_trajectory_details: True
       min_vel_x: 0.0
       min_vel_y: 0.0
-      max_vel_x: 0.4
+      max_vel_x: 0.5
       max_vel_y: 0.0
       max_vel_theta: 1.0
       min_speed_xy: 0.0
-      max_speed_xy: 0.4
+      max_speed_xy: 0.5
       min_speed_theta: -1.0
       acc_lim_x: 2.5
       acc_lim_y: 0.0
@@ -151,7 +151,7 @@ local_costmap:
       width: 5
       height: 5
       resolution: 0.05
-      robot_radius: 0.35
+      robot_radius: 0.48 # 0.473126833
       plugins: [voxel_layer, inflation_layer]
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
@@ -168,9 +168,9 @@ local_costmap:
         z_voxels: 16
         unknown_threshold: 15
         mark_threshold: 3
-        observation_sources: obstacles ground rgbd_camera
-        obstacles:
-          topic: /obstacles
+        observation_sources: lidar3d_obstacles lidar3d_ground rgbd_obstacles rgbd_ground
+        lidar3d_obstacles:
+          topic: /lidar3d_obstacles
           max_obstacle_height: 3.0
           min_obstacle_height: 0.1
           obstacle_max_range: 2.5
@@ -180,8 +180,8 @@ local_costmap:
           clearing: True
           marking: True
           data_type: PointCloud2
-        ground:
-          topic: /ground
+        lidar3d_ground:
+          topic: /lidar3d_ground
           max_obstacle_height: 3.0
           min_obstacle_height: 0.0
           obstacle_max_range: 2.5
@@ -191,8 +191,19 @@ local_costmap:
           clearing: True
           marking: False
           data_type: PointCloud2
-        rgbd_camera:
-          topic: /robot/zed2/zed_node/point_cloud/cloud_registered
+        rgbd_obstacles:
+          topic: /rgbd_obstacles
+          max_obstacle_height: 3.0
+          min_obstacle_height: 0.1
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          clearing: True
+          marking: True
+          data_type: PointCloud2
+        rgbd_ground:
+          topic: /rgbd_ground
           max_obstacle_height: 3.0
           min_obstacle_height: 0.0
           obstacle_max_range: 2.5
@@ -200,7 +211,7 @@ local_costmap:
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           clearing: True
-          marking: True
+          marking: False
           data_type: PointCloud2
       static_layer:
         plugin: nav2_costmap_2d::StaticLayer
@@ -215,7 +226,7 @@ global_costmap:
       global_frame: map
       robot_base_frame: robot/base_footprint
       use_sim_time: True
-      robot_radius: 0.35
+      robot_radius: 0.48 # 0.473126833
       resolution: 0.05
       track_unknown_space: true
       plugins: [static_layer, inflation_layer]
@@ -224,7 +235,7 @@ global_costmap:
         map_subscribe_transient_local: True
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
-        cost_scaling_factor: 1.0
+        cost_scaling_factor: 5.0
         inflation_radius: 0.3
       always_send_full_costmap: True
 
@@ -282,7 +293,7 @@ behavior_server:
     use_sim_time: true
     simulate_ahead_time: 2.0
     max_rotational_vel: 1.0
-    min_rotational_vel: 0.4
+    min_rotational_vel: -1.0
     rotational_acc_lim: 3.2
 
 robot_state_publisher:
@@ -306,8 +317,8 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: OPEN_LOOP
-    max_velocity: [0.4, 0.0, 1.0]
-    min_velocity: [-0.4, 0.0, -1.0]
+    max_velocity: [0.5, 0.0, 1.0]
+    min_velocity: [-0.5, 0.0, -1.0]
     max_accel: [2.5, 0.0, 3.2]
     max_decel: [-2.5, 0.0, -3.2]
     odom_topic: /odom
