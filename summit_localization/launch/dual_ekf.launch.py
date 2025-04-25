@@ -48,40 +48,44 @@ def generate_launch_description():
         description="Whether to start mapviz",
     )
 
-    params_file = os.path.join(
-        get_package_share_directory("summit_localization"),
-        "config",
-        "dual_ekf_navsat.yaml",
-    )
-
     param_substitutions = {"use_sim_time": use_sim_time}
 
-    configured_params = RewrittenYaml(
-        source_file=params_file, param_rewrites=param_substitutions, convert_types=True
+    # EKF
+    ekf_params_file = os.path.join(
+        get_package_share_directory("summit_localization"),
+        "config",
+        "ekf_map.yaml",
     )
 
-    local_ekf_cmd = Node(
-        package="robot_localization",
-        executable="ekf_node",
-        name="ekf_filter_node_odom",
-        output="log",
-        parameters=[configured_params],
-        remappings=[
-            ("odometry/filtered", "/local_odom"),
-            ("accel/filtered", "/local_accel"),
-        ],
+    configured_ekf_params = RewrittenYaml(
+        source_file=ekf_params_file,
+        param_rewrites=param_substitutions,
+        convert_types=True,
     )
 
     global_ekf_cmd = Node(
         package="robot_localization",
         executable="ekf_node",
-        name="ekf_filter_node_map",
+        name="ekf_map_filter_node",
         output="log",
-        parameters=[configured_params],
+        parameters=[configured_ekf_params],
         remappings=[
             ("odometry/filtered", "/global_odom"),
             ("accel/filtered", "/global_accel"),
         ],
+    )
+
+    # Navsat
+    navsat_params_file = os.path.join(
+        get_package_share_directory("summit_localization"),
+        "config",
+        "navsat.yaml",
+    )
+
+    configured_navsat_params = RewrittenYaml(
+        source_file=navsat_params_file,
+        param_rewrites=param_substitutions,
+        convert_types=True,
     )
 
     navsat_cmd = Node(
@@ -89,7 +93,7 @@ def generate_launch_description():
         executable="navsat_transform_node",
         name="navsat_transform",
         output="screen",
-        parameters=[configured_params],
+        parameters=[configured_navsat_params],
         remappings=[
             # Subscriptions
             ("imu", "/imu/data_compass"),
@@ -116,7 +120,6 @@ def generate_launch_description():
     ld = LaunchDescription()
     ld.add_action(use_sim_time_cmd)
     ld.add_action(launch_mapviz_cmd)
-    ld.add_action(local_ekf_cmd)
     ld.add_action(global_ekf_cmd)
     ld.add_action(navsat_cmd)
     ld.add_action(mapviz_cmd)

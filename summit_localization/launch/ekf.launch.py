@@ -40,7 +40,9 @@ def generate_launch_description():
     )
 
     params_file = os.path.join(
-        get_package_share_directory("summit_localization"), "config", "ekf.yaml"
+        get_package_share_directory("summit_localization"),
+        "config",
+        "ekf_odom.yaml",
     )
 
     param_substitutions = {"use_sim_time": use_sim_time}
@@ -52,7 +54,7 @@ def generate_launch_description():
     ekf_cmd = Node(
         package="robot_localization",
         executable="ekf_node",
-        name="ekf_filter_node",
+        name="ekf_odom_filter_node",
         output="log",
         parameters=[configured_params],
         remappings=[

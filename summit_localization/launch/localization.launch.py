@@ -106,7 +106,6 @@ def generate_launch_description():
             os.path.join(pkg_localization, "launch", "ekf.launch.py")
         ),
         launch_arguments={"use_sim_time": use_sim_time}.items(),
-        condition=UnlessCondition(PythonExpression([use_gps])),
     )
 
     dual_ekf_cmd = IncludeLaunchDescription(
