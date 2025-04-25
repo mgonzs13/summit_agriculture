@@ -153,8 +153,8 @@ def generate_launch_description():
     planner_cmd = DeclareLaunchArgument(
         "planner",
         default_value="Navfn",
-        choices=["Navfn", "SmacHybrid"],
-        description="Nav2 planner (Navfn or SmacHybrid)",
+        choices=["Navfn", "SmacHybrid", "SmacLattice"],
+        description="Nav2 planner (Navfn or SmacHybrid or SmacLattice)",
     )
 
     controller = LaunchConfiguration("controller")
@@ -162,7 +162,7 @@ def generate_launch_description():
         "controller",
         default_value="DWB",
         choices=["DWB", "TEB", "RPP"],
-        description="Nav2 controller (DWB or TEB)",
+        description="Nav2 controller (DWB or TEB or RPP)",
     )
 
     launch_rviz = LaunchConfiguration("launch_rviz")
