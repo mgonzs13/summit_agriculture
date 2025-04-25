@@ -190,7 +190,7 @@ def generate_launch_description():
     controller = LaunchConfiguration("controller")
     controller_cmd = DeclareLaunchArgument(
         "controller",
-        default_value="DWB",
+        default_value="TEB",
         choices=["DWB", "TEB", "RPP"],
         description="Nav2 controller (DWB or TEB or RPP)",
     )
