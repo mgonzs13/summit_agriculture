@@ -19,6 +19,7 @@
   <depend>navigation2</depend>
   <depend>nav2_smac_planner</depend>
   <depend>nav2_regulated_pure_pursuit_controller</depend>
+  <depend>teb_local_planner</depend>
 
   <export>
     <build_type>ament_cmake</build_type>
