@@ -34,28 +34,28 @@ controller_server:
       max_samples: 500
       min_samples: 3
       exact_arc_length: False
-      feasibility_check_no_poses: 2
+      feasibility_check_no_poses: 5
       feasibility_check_lookahead_distance: -1.0
       publish_feedback: False
 
       # Velocity
-      max_vel_x: 0.5
+      max_vel_x: 0.6
       max_vel_x_backwards: 0.2
       max_vel_y: 0.0
-      max_vel_theta: 1.0
-      acc_lim_x: 2.5
+      max_vel_theta: 0.75
+      acc_lim_x: 0.2
       acc_lim_y: 0.5
-      acc_lim_theta: 5.0
+      acc_lim_theta: 0.2
 
       # Thresholds
-      min_obstacle_dist: 0.27
-      inflation_dist: 0.6
+      min_obstacle_dist: 0.3
+      inflation_dist: 0.7
       dynamic_obstacle_inflation_dist: 0.6
 
       # Obstacle Handling
       include_costmap_obstacles: True
       include_dynamic_obstacles: True
-      obstacle_poses_affected: 15
+      obstacle_poses_affected: 30
       obstacle_cost_exponent: 4.0
       obstacle_heading_threshold: 0.45
       obstacle_keypoint_offset: 0.1
@@ -73,22 +73,22 @@ controller_server:
       no_inner_iterations: 5
       no_outer_iterations: 4
       penalty_epsilon: 0.1
-      weight_max_vel_x: 0.5
-      weight_max_vel_y: 2.0
-      weight_max_vel_theta: 0.5
-      weight_acc_lim_x: 0.5
-      weight_acc_lim_y: 1.0
-      weight_acc_lim_theta: 10.5
-      weight_kinematics_nh: 1000.0
+      weight_max_vel_x: 20.0
+      weight_max_vel_y: 0.0
+      weight_max_vel_theta: 20.0
+      weight_acc_lim_x: 1.0
+      weight_acc_lim_y: 0.0
+      weight_acc_lim_theta: 1.0
+      weight_kinematics_nh: 10000.0
       weight_kinematics_forward_drive: 1000.0
       weight_kinematics_turning_radius: 1.0
-      weight_optimaltime: 1.0 # must be > 0
+      weight_optimaltime: 10.0 # must be > 0
       weight_shortest_path: 0.0
-      weight_obstacle: 100.0
-      weight_inflation: 0.2
+      weight_obstacle: 50.0
+      weight_inflation: 1.0
       weight_dynamic_obstacle: 10.0 # not in use yet
       weight_dynamic_obstacle_inflation: 0.2
-      weight_viapoint: 50.0
+      weight_viapoint: 100.0
       weight_adapt_factor: 2.0
       weight_velocity_obstacle_ratio: 0.0
       weight_prefer_rotdir: 50.0
@@ -104,10 +104,10 @@ controller_server:
       length_start_orientation_vector: 0.4
 
       # Goal Behavior
-      global_plan_overwrite_orientation: False
+      global_plan_overwrite_orientation: True
       allow_init_with_backwards_motion: False
       global_plan_prune_distance: 1.0
-      global_plan_viapoint_sep: 0.3
+      global_plan_viapoint_sep: 0.5
       max_global_plan_lookahead_dist: 3.0
       free_goal_vel: false
 
@@ -115,17 +115,17 @@ controller_server:
       enable_homotopy_class_planning: False
       enable_multithreading: True
       max_number_classes: 4
-      selection_cost_hysteresis: 5.0
+      selection_cost_hysteresis: 1.0
       selection_prefer_initial_plan: 1.0
       selection_obst_cost_scale: 1.0
-      selection_alternative_time_cost: True
+      selection_alternative_time_cost: False
       selection_dropping_probability: 0.0
       selection_viapoint_cost_scale: 1.0
-      simple_exploration: false
+      simple_exploration: False
       roadmap_graph_no_samples: 15
-      roadmap_graph_area_width: 5.0
+      roadmap_graph_area_width: 6.0
       roadmap_graph_area_length_scale: 1.0
-      h_signature_prescaler: 0.5
+      h_signature_prescaler: 1.0
       h_signature_threshold: 0.1
       via_points_ordered: False
       viapoints_all_candidates: True
