@@ -16,3 +16,6 @@
 [submodule "hector_gazebo"]
 	path = hector_gazebo
 	url = git@github.com:mgonzs13/hector_gazebo.git
+[submodule "teb_local_planner"]
+	path = teb_local_planner
+	url = git@github.com:mgonzs13/teb_local_planner.git
