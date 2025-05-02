@@ -20,4 +20,22 @@ install(PROGRAMS
   RENAME interactive_waypoint_follower
 )
 
+install(PROGRAMS
+  summit_localization/gps_waypoint_logger.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME gps_waypoint_logger
+)
+
+install(PROGRAMS
+  summit_localization/logged_waypoint_follower.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME logged_waypoint_follower
+)
+
+install(PROGRAMS
+  summit_localization/loop_waypoint_follower.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME loop_waypoint_follower
+)
+
 ament_package()
