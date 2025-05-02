@@ -34,7 +34,7 @@ class GpsGuiLogger(tk.Tk, Node):
 
         self.gps_subscription = self.create_subscription(
             NavSatFix,
-            '/gps/fix',
+            '/robot/gps/fix',
             self.gps_callback,
             1
         )
