@@ -160,7 +160,7 @@ def generate_launch_description():
                 "Grid/DepthRoiRatios": "0.0 0.0 0.0 0.1",
                 "GridGlobal/FootprintRadius": "0.4",
                 "GridGlobal/UpdateError": "0.01",
-                "GridGlobal/MinSize": "100.0",
+                "GridGlobal/MinSize": "300.0",
                 "GridGlobal/Eroded": "true",
                 "GridGlobal/FloodFillDepth": "16",
             }

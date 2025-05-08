@@ -39,18 +39,18 @@ controller_server:
       publish_feedback: False
 
       # Velocity
-      max_vel_x: 0.6
+      max_vel_x: 0.7
       max_vel_x_backwards: 0.2
       max_vel_y: 0.0
-      max_vel_theta: 0.75
-      acc_lim_x: 0.2
+      max_vel_theta: 1.0
+      acc_lim_x: 3.2
       acc_lim_y: 0.5
-      acc_lim_theta: 0.2
+      acc_lim_theta: 5.0
 
       # Thresholds
-      min_obstacle_dist: 0.3
-      inflation_dist: 0.7
-      dynamic_obstacle_inflation_dist: 0.6
+      min_obstacle_dist: 0.27
+      inflation_dist: 0.5
+      dynamic_obstacle_inflation_dist: 0.5
 
       # Obstacle Handling
       include_costmap_obstacles: True
@@ -83,9 +83,9 @@ controller_server:
       weight_kinematics_forward_drive: 1000.0
       weight_kinematics_turning_radius: 1.0
       weight_optimaltime: 10.0 # must be > 0
-      weight_shortest_path: 0.0
+      weight_shortest_path: 1.0
       weight_obstacle: 50.0
-      weight_inflation: 1.0
+      weight_inflation: 0.5
       weight_dynamic_obstacle: 10.0 # not in use yet
       weight_dynamic_obstacle_inflation: 0.2
       weight_viapoint: 100.0
