@@ -64,7 +64,7 @@ def generate_launch_description():
         ("depth/camera_info", "/robot/zed2/zed_node/camera_info"),
         ("depth/image", "/robot/zed2/zed_node/depth/depth_registered"),
         ("scan_cloud", "/robot/top_3d_laser/points_filtered"),
-        ("imu", "/robot/zed2/zed_node/imu/data"),
+        # ("imu", "/robot/zed2/zed_node/imu/data"),
         ("gps/fix", "/robot/gps/fix"),
         ("odom", "odom"),
         ("goal", "goal_pose"),
