@@ -39,16 +39,16 @@ controller_server:
       publish_feedback: False
 
       # Velocity
-      max_vel_x: 0.7
+      max_vel_x: 0.5
       max_vel_x_backwards: 0.2
       max_vel_y: 0.0
       max_vel_theta: 1.0
-      acc_lim_x: 3.2
+      acc_lim_x: 0.2
       acc_lim_y: 0.5
-      acc_lim_theta: 5.0
+      acc_lim_theta: 0.2
 
       # Thresholds
-      min_obstacle_dist: 0.27
+      min_obstacle_dist: 0.25
       inflation_dist: 0.5
       dynamic_obstacle_inflation_dist: 0.5
 

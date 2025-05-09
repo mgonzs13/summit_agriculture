@@ -100,7 +100,7 @@ def generate_launch_description():
                 "Optimizer/Strategy": "2",
                 "Optimizer/GravitySigma": "0.3",
                 "RGBD/Enabled": "true",
-                "RGBD/OptimizeMaxError": "1.0",
+                "RGBD/OptimizeMaxError": "3.0",
                 "RGBD/OptimizeFromGraphEnd": "true",
                 "RGBD/CreateOccupancyGrid": "true",
                 "RGBD/LoopClosureIdentityGuess": "false",
