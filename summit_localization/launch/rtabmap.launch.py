@@ -92,6 +92,7 @@ def generate_launch_description():
                 "qos_camera_info": 1,
                 "qos_imu": 2,
                 "qos_gps": 1,
+                "qos_odom": 1,
                 # Hypotheses selection
                 "Rtabmap/LoopGPS": "true",
                 "Rtabmap/LoopThr": "0.11",
