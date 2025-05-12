@@ -14,6 +14,7 @@
   <depend>rtabmap</depend>
   <depend>rtabmap_ros</depend>
   <depend>imu_compass</depend>
+  <depend>imu_complementary_filter</depend>
   <depend>robot_localization</depend>
   <depend>mapviz</depend>
   <depend>mapviz_plugins</depend>

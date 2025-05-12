@@ -39,7 +39,7 @@ ekf_odom_filter_node:
 
         false,
         false,
-        true,
+        false,
 
         false,
         false,
@@ -47,7 +47,7 @@ ekf_odom_filter_node:
       ]
     odom0_queue_size: 30
     odom0_differential: true
-    odom0_relative: false
+    odom0_relative: true
 
     odom1: /robot/zed2/zed_node/odom
     odom1_config:
@@ -76,7 +76,7 @@ ekf_odom_filter_node:
     odom1_differential: true
     odom1_relative: false
 
-    imu0: /robot/zed2/zed_node/imu/data
+    imu0: /robot/imu/data_filtered
     imu0_config:
       [
         false,
@@ -93,7 +93,7 @@ ekf_odom_filter_node:
 
         false,
         false,
-        false,
+        true,
 
         false,
         false,
@@ -101,7 +101,7 @@ ekf_odom_filter_node:
       ]
     imu0_queue_size: 30
     imu0_differential: false
-    imu0_relative: false
+    imu0_relative: true
     imu0_remove_gravitational_acceleration: true
 
     use_control: false
