@@ -82,18 +82,6 @@ def generate_launch_description():
         condition=UnlessCondition(PythonExpression([is_sim])),
     )
 
-    imu_complementary_filter_cmd = Node(
-        package="imu_complementary_filter",
-        executable="complementary_filter_node",
-        name="complementary_filter_gain_node",
-        output="screen",
-        parameters=[os.path.join(pkg_localization, "config", "filter_config.yaml")],
-        remappings=[
-            ("imu/data_raw", "/robot/imu/data_raw"),
-            ("imu/data", "/robot/imu/data_filtered"),
-        ],
-    )
-
     rgbd_odometry_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_localization, "launch", "rgbd_odometry.launch.py")
@@ -152,7 +140,6 @@ def generate_launch_description():
     ld.add_action(use_gps_cmd)
     ld.add_action(laser_filter_node_cmd)
     ld.add_action(camera_info_pub_cmd)
-    ld.add_action(imu_complementary_filter_cmd)
     ld.add_action(rgbd_odometry_cmd)
     ld.add_action(rtabmap_cmd)
     ld.add_action(ekf_cmd)
