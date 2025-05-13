@@ -10,12 +10,13 @@ local_costmap:
       width: 5
       height: 5
       resolution: 0.05
-      robot_radius: 0.48 # 0.473126833
+      # robot_radius: 0.48 # 0.473126833
+      footprint: "[[0.3655, 0.307], [0.3655, -0.307], [-0.3655, -0.307], [-0.3655, 0.307]]"
       plugins: [voxel_layer, inflation_layer]
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
         cost_scaling_factor: 3.0
-        inflation_radius: 0.5
+        inflation_radius: 0.4
       voxel_layer:
         plugin: nav2_costmap_2d::VoxelLayer
         enabled: True
@@ -85,7 +86,8 @@ global_costmap:
       global_frame: map
       robot_base_frame: robot/base_footprint
       use_sim_time: True
-      robot_radius: 0.48 # 0.473126833
+      # robot_radius: 0.48 # 0.473126833
+      footprint: "[[0.3655, 0.307], [0.3655, -0.307], [-0.3655, -0.307], [-0.3655, 0.307]]"
       resolution: 0.05
       track_unknown_space: true
       plugins: [static_layer, inflation_layer]
@@ -95,5 +97,5 @@ global_costmap:
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
         cost_scaling_factor: 3.0
-        inflation_radius: 0.5
+        inflation_radius: 0.4
       always_send_full_costmap: True
