@@ -72,6 +72,7 @@ def generate_launch_description():
         remappings=[
             ("odometry/filtered", "/global_odom"),
             ("accel/filtered", "/global_accel"),
+            ("set_pose", "/ekf_map/set_pose"),
         ],
     )
 
