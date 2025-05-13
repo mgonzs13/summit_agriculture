@@ -126,7 +126,7 @@ def generate_launch_description():
 
     set_compass_pose_cmd = Node(
         package="summit_localization",
-        executable="cameraset_compass_pose_info_pub_node",
+        executable="set_compass_pose",
         name="set_compass_pose_node",
         condition=IfCondition(PythonExpression([use_gps])),
     )
