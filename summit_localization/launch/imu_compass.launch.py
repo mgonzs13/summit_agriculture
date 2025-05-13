@@ -58,8 +58,8 @@ def generate_launch_description():
                 parameters=[configured_params],
                 output="screen",
                 remappings=[
-                    ("/imu/data", "/robot/zed2/zed_node/imu/data"),
-                    ("/imu/mag", "/robot/zed2/zed_node/imu/mag"),
+                    ("/imu/data", "/robot/imu/data_raw"),
+                    ("/imu/mag", "/robot/imu/mag"),
                 ],
             ),
         ]
