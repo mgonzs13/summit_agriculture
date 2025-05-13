@@ -124,6 +124,13 @@ def generate_launch_description():
         condition=IfCondition(PythonExpression([use_gps])),
     )
 
+    set_compass_pose_cmd = Node(
+        package="summit_localization",
+        executable="cameraset_compass_pose_info_pub_node",
+        name="set_compass_pose_node",
+        condition=IfCondition(PythonExpression([use_gps])),
+    )
+
     waypoint_follower_cmd = Node(
         package="summit_localization",
         executable="interactive_waypoint_follower",
@@ -145,6 +152,7 @@ def generate_launch_description():
     ld.add_action(ekf_cmd)
     ld.add_action(dual_ekf_cmd)
     ld.add_action(imu_compass_cmd)
+    ld.add_action(set_compass_pose_cmd)
     ld.add_action(waypoint_follower_cmd)
 
     return ld

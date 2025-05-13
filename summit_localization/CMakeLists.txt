@@ -38,4 +38,10 @@ install(PROGRAMS
   RENAME loop_waypoint_follower
 )
 
+install(PROGRAMS
+  summit_localization/set_compass_pose.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME set_compass_pose
+)
+
 ament_package()
