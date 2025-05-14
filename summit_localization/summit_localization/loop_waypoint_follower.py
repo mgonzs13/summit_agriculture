@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 
-import rclpy
-from nav2_simple_commander.robot_navigator import BasicNavigator
-import yaml
-from ament_index_python.packages import get_package_share_directory
 import os
 import sys
-import time
-from robot_localization.srv import FromLL
+import yaml
+
+import rclpy
 from rclpy.node import Node
+from ament_index_python.packages import get_package_share_directory
 from summit_localization.utils.gps_utils import latLonYaw2Geopose
-from nav2_msgs.action import FollowWaypoints
+
+from robot_localization.srv import FromLL
 from geometry_msgs.msg import PoseStamped
+from nav2_simple_commander.robot_navigator import BasicNavigator
+
 
 class YamlWaypointParser:
     """

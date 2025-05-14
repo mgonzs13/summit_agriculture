@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
+import os
+import sys
+import yaml
+import tkinter as tk
+from tkinter import messagebox
+
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import NavSatFix, Imu
-import yaml
-import os
-import sys
-import tkinter as tk
-from tkinter import messagebox
 from summit_localization.utils.gps_utils import euler_from_quaternion
 
 
@@ -18,7 +19,7 @@ class GpsGuiLogger(tk.Tk, Node):
 
     def __init__(self, logging_file_path):
         tk.Tk.__init__(self)
-        Node.__init__(self, 'gps_waypoint_logger')
+        Node.__init__(self, "gps_waypoint_logger")
         self.title("GPS Waypoint Logger")
 
         self.logging_file_path = logging_file_path
@@ -28,23 +29,18 @@ class GpsGuiLogger(tk.Tk, Node):
         self.gps_pose_textbox = tk.Label(self, text="", width=45)
         self.gps_pose_textbox.pack()
 
-        self.log_gps_wp_button = tk.Button(self, text="Log GPS Waypoint",
-                                           command=self.log_waypoint)
+        self.log_gps_wp_button = tk.Button(
+            self, text="Log GPS Waypoint", command=self.log_waypoint
+        )
         self.log_gps_wp_button.pack()
 
         self.gps_subscription = self.create_subscription(
-            NavSatFix,
-            '/robot/gps/fix',
-            self.gps_callback,
-            1
+            NavSatFix, "/robot/gps/fix", self.gps_callback, 1
         )
         self.last_gps_position = NavSatFix()
 
         self.imu_subscription = self.create_subscription(
-            Imu,
-            '/imu',
-            self.imu_callback,
-            1
+            Imu, "/imu", self.imu_callback, 1
         )
         self.last_heading = 0.0
 
@@ -67,7 +63,8 @@ class GpsGuiLogger(tk.Tk, Node):
         Function to update the GUI with the last coordinates
         """
         self.gps_pose_textbox.config(
-            text=f"Lat: {self.last_gps_position.latitude:.6f}, Lon: {self.last_gps_position.longitude:.6f}, yaw: {self.last_heading:.2f} rad")
+            text=f"Lat: {self.last_gps_position.latitude:.6f}, Lon: {self.last_gps_position.longitude:.6f}, yaw: {self.last_heading:.2f} rad"
+        )
 
     def log_waypoint(self):
         """
@@ -75,32 +72,30 @@ class GpsGuiLogger(tk.Tk, Node):
         """
         # read existing waypoints
         try:
-            with open(self.logging_file_path, 'r') as yaml_file:
+            with open(self.logging_file_path, "r") as yaml_file:
                 existing_data = yaml.safe_load(yaml_file)
         # in case the file does not exist, create with the new wps
         except FileNotFoundError:
             existing_data = {"waypoints": []}
         # if other exception, raise the warining
         except Exception as ex:
-            messagebox.showerror(
-                "Error", f"Error logging position: {str(ex)}")
+            messagebox.showerror("Error", f"Error logging position: {str(ex)}")
             return
 
         # build new waypoint object
         data = {
             "latitude": self.last_gps_position.latitude,
             "longitude": self.last_gps_position.longitude,
-            "yaw": self.last_heading
+            "yaw": self.last_heading,
         }
         existing_data["waypoints"].append(data)
 
         # write updated waypoints
         try:
-            with open(self.logging_file_path, 'w') as yaml_file:
+            with open(self.logging_file_path, "w") as yaml_file:
                 yaml.dump(existing_data, yaml_file, default_flow_style=False)
         except Exception as ex:
-            messagebox.showerror(
-                "Error", f"Error logging position: {str(ex)}")
+            messagebox.showerror("Error", f"Error logging position: {str(ex)}")
             return
 
         messagebox.showinfo("Info", "Waypoint logged succesfully")
@@ -126,5 +121,5 @@ def main(args=None):
     rclpy.shutdown()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
