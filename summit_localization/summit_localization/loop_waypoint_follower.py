@@ -101,9 +101,9 @@ def main():
 
     # allow to pass the waypoints file as an argument
     default_yaml_file_path = os.path.join(
-        get_package_share_directory("nav2_gps_waypoint_follower_demo"),
+        get_package_share_directory("summit_localization"),
         "config",
-        "demo_waypoints.yaml",
+        "gps_waypoints.yaml",
     )
     if len(sys.argv) > 1:
         yaml_file_path = sys.argv[1]
