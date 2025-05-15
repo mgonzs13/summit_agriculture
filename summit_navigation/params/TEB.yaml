@@ -48,9 +48,9 @@ controller_server:
       acc_lim_theta: 0.2
 
       # Thresholds
-      min_obstacle_dist: 0.25
-      inflation_dist: 0.5
-      dynamic_obstacle_inflation_dist: 0.5
+      min_obstacle_dist: 0.27
+      inflation_dist: 0.7
+      dynamic_obstacle_inflation_dist: 0.7
 
       # Obstacle Handling
       include_costmap_obstacles: True
@@ -113,7 +113,7 @@ controller_server:
       free_goal_vel: false
 
       # Homotopy Class Planner
-      enable_homotopy_class_planning: False
+      enable_homotopy_class_planning: True
       enable_multithreading: True
       max_number_classes: 4
       selection_cost_hysteresis: 1.0
