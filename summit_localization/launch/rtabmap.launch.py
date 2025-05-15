@@ -179,34 +179,6 @@ def generate_launch_description():
 
         return [
             Node(
-                package="rtabmap_util",
-                executable="obstacles_detection",
-                name="lidar3d_obstacles_detection",
-                output="log",
-                parameters=parameters,
-                remappings=remappings
-                + [
-                    ("cloud", "/robot/top_3d_laser/points_filtered"),
-                    ("obstacles", "/lidar3d_obstacles"),
-                    ("ground", "/lidar3d_ground"),
-                ],
-                arguments=arguments,
-            ),
-            Node(
-                package="rtabmap_util",
-                executable="obstacles_detection",
-                name="rgbd_obstacles_detection",
-                output="log",
-                parameters=parameters,
-                remappings=remappings
-                + [
-                    ("cloud", "/robot/zed2/zed_node/point_cloud/cloud_registered"),
-                    ("obstacles", "/rgbd_obstacles"),
-                    ("ground", "/rgbd_ground"),
-                ],
-                arguments=arguments,
-            ),
-            Node(
                 package="rtabmap_slam",
                 executable="rtabmap",
                 output="log",

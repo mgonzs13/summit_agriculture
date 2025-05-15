@@ -182,7 +182,7 @@ def generate_launch_description():
     planner = LaunchConfiguration("planner")
     planner_cmd = DeclareLaunchArgument(
         "planner",
-        default_value="SmacHybrid",
+        default_value="Navfn",
         choices=["Navfn", "SmacHybrid", "SmacLattice", "ThetaStar"],
         description="Nav2 planner (Navfn or SmacHybrid or SmacLattice or ThetaStar)",
     )

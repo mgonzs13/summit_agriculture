@@ -101,6 +101,13 @@ def generate_launch_description():
         }.items(),
     )
 
+    obstacles_detection_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_localization, "launch", "obstacles_detection.launch.py")
+        ),
+        launch_arguments={"use_sim_time": use_sim_time}.items(),
+    )
+
     ekf_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_localization, "launch", "ekf.launch.py")
@@ -149,6 +156,7 @@ def generate_launch_description():
     ld.add_action(camera_info_pub_cmd)
     ld.add_action(rgbd_odometry_cmd)
     ld.add_action(rtabmap_cmd)
+    ld.add_action(obstacles_detection_cmd)
     ld.add_action(ekf_cmd)
     ld.add_action(dual_ekf_cmd)
     ld.add_action(imu_compass_cmd)
