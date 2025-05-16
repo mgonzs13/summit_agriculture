@@ -101,7 +101,7 @@ global_costmap:
         z_resolution: 0.05
         z_voxels: 16
         unknown_threshold: 15
-        mark_threshold: 2
+        mark_threshold: 3
         observation_sources: lidar3d_obstacles lidar3d_ground rgbd_obstacles rgbd_ground
         lidar3d_obstacles:
           topic: /lidar3d_obstacles
