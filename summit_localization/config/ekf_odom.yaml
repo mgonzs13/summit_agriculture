@@ -47,7 +47,7 @@ ekf_odom_filter_node:
       ]
     odom0_queue_size: 30
     odom0_differential: true
-    odom0_relative: true
+    odom0_relative: false
 
     odom1: /robot/zed2/zed_node/odom
     odom1_config:
