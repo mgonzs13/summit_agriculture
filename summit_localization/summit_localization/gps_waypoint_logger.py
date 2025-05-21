@@ -9,7 +9,7 @@ from tkinter import messagebox
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import NavSatFix
-from std_msgs.msg import Float32 
+from std_msgs.msg import Float32
 
 class GpsGuiLogger(tk.Tk, Node):
     """
