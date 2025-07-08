@@ -115,7 +115,7 @@ class DepthImageCenteringNode(Node):
         new_msg.header = msg.header
         new_msg.header.frame_id = self.target_frame  # Update to indicate centering frame
         self.image_pub.publish(new_msg)
-        self.get_logger().info("Published cropped and centered depth image.")
+        self.get_logger().debug("Published cropped and centered depth image.")
 
 
 def main(args=None):

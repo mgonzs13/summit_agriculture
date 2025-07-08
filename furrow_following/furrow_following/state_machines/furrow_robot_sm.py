@@ -19,7 +19,14 @@ class FurrowFollowingStateMachine(StateMachine):
 
         self.add_state(
             "CHECKING_END_FURROW",
-            CheckEndFurrowStateMachine([]),
+            CheckEndFurrowStateMachine(
+                [
+                    (42.61288, -5.56562),
+                    (42.61288, -5.56570),
+                    (42.61282, -5.56570),
+                    (42.61282, -5.56562),
+                ]
+            ),
             {
                 FURROW_ENDS: SUCCEED,
                 FURROW_CONTINUES: "GETTING_DEPTH_IMAGE",

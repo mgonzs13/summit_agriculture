@@ -24,7 +24,7 @@ class CheckEndFurrowState(State):
         return FURROW_ENDS
 
     def is_point_in_polygon(
-        x: float, y: float, polygon: List[Tuple[float, float]]
+        self, x: float, y: float, polygon: List[Tuple[float, float]]
     ) -> bool:
         """
         Determine if a point is inside a polygon using the ray casting algorithm.
