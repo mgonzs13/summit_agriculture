@@ -4,9 +4,12 @@ from yasmin_ros.basic_outcomes import SUCCEED, ABORT, CANCEL
 from furrow_following.states import (
     GetDepthImageState,
     CalculateTwistState,
-    CheckFurrowState,
     DriveState,
 )
+from furrow_following.state_machines.check_end_furrow_state_machine import (
+    CheckEndFurrowStateMachine,
+)
+from furrow_following.states.outcomes import FURROW_CONTINUES, FURROW_ENDS
 
 
 class FurrowFollowingStateMachine(StateMachine):
@@ -15,20 +18,20 @@ class FurrowFollowingStateMachine(StateMachine):
         super().__init__([SUCCEED, ABORT, CANCEL])
 
         self.add_state(
-            "GETTING_DEPTH_IMAGE",
-            GetDepthImageState("/depth_centered"),
+            "CHECKING_END_FURROW",
+            CheckEndFurrowStateMachine([]),
             {
-                SUCCEED: "CHECKING_FURROW",
-                CANCEL: CANCEL,
+                FURROW_ENDS: SUCCEED,
+                FURROW_CONTINUES: "GETTING_DEPTH_IMAGE",
             },
         )
 
         self.add_state(
-            "CHECKING_FURROW",
-            CheckFurrowState(),
+            "GETTING_DEPTH_IMAGE",
+            GetDepthImageState("/depth_centered"),
             {
-                CheckFurrowState.NO_FURROW: SUCCEED,
-                CheckFurrowState.FURROW: "CALCULATING_TWIST",
+                SUCCEED: "CALCULATING_TWIST",
+                CANCEL: CANCEL,
             },
         )
 
