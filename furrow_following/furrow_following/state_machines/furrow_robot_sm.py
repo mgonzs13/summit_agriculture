@@ -21,10 +21,10 @@ class FurrowFollowingStateMachine(StateMachine):
             "CHECKING_END_FURROW",
             CheckEndFurrowStateMachine(
                 [
-                    (42.61288, -5.56562),
-                    (42.61288, -5.56570),
-                    (42.61282, -5.56570),
-                    (42.61282, -5.56562),
+                    (42.61290, -5.56559),
+                    (42.61290, -5.56573),
+                    (42.61280, -5.56559),
+                    (42.61280, -5.56573),
                 ]
             ),
             {

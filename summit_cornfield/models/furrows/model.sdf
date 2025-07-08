@@ -6,8 +6,8 @@
         <collision name="collision">
           <geometry>
             <heightmap>
-              <uri>model://cornfield/materials/heightmap/cornfield.png</uri>
-              <size>7 7 0.1</size>
+              <uri>model://furrows/materials/heightmap/furrows.png</uri>
+              <size>14 14 0.1</size>
               <pos>0 0 0</pos>
             </heightmap>
           </geometry>
@@ -25,12 +25,12 @@
           <geometry>
             <heightmap>
               <texture>
-                <diffuse>model://cornfield/materials/textures/ground.jpeg</diffuse>
-                <normal>model://cornfield/materials/textures/ground_normal.jpg</normal>
+                <diffuse>model://furrows/materials/textures/ground.jpeg</diffuse>
+                <normal>model://furrows/materials/textures/ground_normal.jpg</normal>
                 <size>1</size>
               </texture>
-              <uri>model://cornfield/materials/heightmap/cornfield.png</uri>
-              <size>7 7 0.1</size>
+              <uri>model://furrows/materials/heightmap/furrows.png</uri>
+              <size>14 14 0.1</size>
               <pos>0 0 0</pos>
             </heightmap>
           </geometry>
