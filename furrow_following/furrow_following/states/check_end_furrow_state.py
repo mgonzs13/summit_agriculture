@@ -16,11 +16,13 @@ class CheckEndFurrowState(State):
     def execute(self, blackboard: Blackboard) -> str:
 
         msg: NavSatFix = blackboard["gps_msg"]
+        blackboard["furrows_end"] = False
 
         if self.is_point_in_polygon(msg.latitude, msg.longitude, self.poligon):
-            yasmin.YASMIN_LOG_INFO("End of furrow")
             return FURROW_CONTINUES
 
+        yasmin.YASMIN_LOG_INFO("End of furrow")
+        blackboard["furrows_end"] = True
         return FURROW_ENDS
 
     def is_point_in_polygon(

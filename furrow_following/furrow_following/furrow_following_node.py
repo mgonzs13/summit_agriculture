@@ -7,7 +7,7 @@ from yasmin.blackboard import Blackboard
 from yasmin_ros.ros_logs import set_ros_loggers
 from yasmin_viewer.yasmin_viewer_pub import YasminViewerPub
 
-from furrow_following.state_machines import FurrowFollowingStateMachine
+from furrow_following.state_machines import MainStateMachine
 
 
 def main() -> None:
@@ -16,7 +16,7 @@ def main() -> None:
     set_ros_loggers()
 
     # Create the state machine
-    sm = FurrowFollowingStateMachine()
+    sm = MainStateMachine()
 
     # Ensure the state machine cancels on shutdown
     def on_shutdown():
