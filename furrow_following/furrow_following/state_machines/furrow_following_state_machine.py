@@ -1,4 +1,4 @@
-from yasmin.state_machine import StateMachine
+from yasmin import StateMachine
 from yasmin_ros.basic_outcomes import SUCCEED, ABORT, CANCEL
 
 from furrow_following.states import (
@@ -21,10 +21,10 @@ class FurrowFollowingStateMachine(StateMachine):
             "CHECKING_END_FURROW",
             CheckEndFurrowStateMachine(
                 [
-                    (42.61290, -5.56559),
-                    (42.61290, -5.56573),
-                    (42.61280, -5.56559),
-                    (42.61280, -5.56573),
+                    (42.61289831883529, -5.5655960952234915),
+                    (42.61280378018076, -5.5655960952234915),
+                    (42.61280378018076, -5.565724812262146),
+                    (42.61289831883529, -5.565724812262146),
                 ]
             ),
             {
@@ -55,6 +55,6 @@ class FurrowFollowingStateMachine(StateMachine):
             "DRIVING",
             DriveState("/robot/robotnik_base_control/cmd_vel"),
             {
-                SUCCEED: "GETTING_DEPTH_IMAGE",
+                SUCCEED: "CHECKING_END_FURROW",
             },
         )

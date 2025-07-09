@@ -111,6 +111,6 @@ def generate_launch_description():
     ld.add_action(gazebo_client_cmd)
     ld.add_action(gazebo_server_cmd)
     ld.add_action(summit_spawn_cmd)
-    ld.add_action(furrow_following)
+    # ld.add_action(furrow_following)
 
     return ld
