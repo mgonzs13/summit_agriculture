@@ -44,7 +44,7 @@ class CalculateTurnState(State):
         if (self.target_angle > 0 and degrees_turned < self.target_angle) or (
             self.target_angle < 0 and degrees_turned > self.target_angle
         ):
-            blackboard["twist_msg"].angular.z = 1.0 if self.target_angle > 0 else -1.0
+            blackboard["twist_msg"].angular.z = 1.25 if self.target_angle > 0 else -1.25
             return CONTINUES
 
         self.start_yaw = None

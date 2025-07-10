@@ -43,7 +43,7 @@ class MoveToNextFurrowStateMachine(StateMachine):
 
         self.add_state(
             "MOVING_FORWARD_2",
-            MovingForwardStateMachine(0.75),
+            MovingForwardStateMachine(1.0),
             {
                 ENDS: SUCCEED,
                 CANCEL: CANCEL,
