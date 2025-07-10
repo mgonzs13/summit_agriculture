@@ -64,6 +64,13 @@ def generate_launch_description():
         description="Whether use GPS in localization",
     )
 
+    use_rtabmap = LaunchConfiguration("use_rtabmap")
+    use_rtabmap_cmd = DeclareLaunchArgument(
+        "use_rtabmap",
+        default_value="False",
+        description="Whether use RTAB-Map for SLAM",
+    )
+
     laser_filter_node_cmd = Node(
         package="robotnik_filters",
         executable="filter_node",
@@ -99,6 +106,7 @@ def generate_launch_description():
             "slam_mode": slam_mode,
             "use_gps_map": use_gps,
         }.items(),
+        condition=IfCondition(PythonExpression([use_rtabmap])),
     )
 
     obstacles_detection_cmd = IncludeLaunchDescription(
@@ -152,6 +160,7 @@ def generate_launch_description():
     ld.add_action(slam_mode_cmd)
     ld.add_action(is_sim_cmd)
     ld.add_action(use_gps_cmd)
+    ld.add_action(use_rtabmap_cmd)
     ld.add_action(laser_filter_node_cmd)
     ld.add_action(camera_info_pub_cmd)
     ld.add_action(rgbd_odometry_cmd)

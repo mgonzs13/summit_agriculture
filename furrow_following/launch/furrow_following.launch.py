@@ -44,26 +44,33 @@ def generate_launch_description():
         condition=UnlessCondition(PythonExpression([is_sim])),
     )
 
-    ekf_cmd = IncludeLaunchDescription(
+    summit_localization_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
                 get_package_share_directory("summit_localization"),
                 "launch",
-                "ekf.launch.py",
+                "localization.launch.py",
             )
         ),
-        launch_arguments={"use_sim_time": use_sim_time}.items(),
+        launch_arguments={
+            "use_sim_time": use_sim_time,
+            "is_sim": is_sim,
+            "use_gps": "True",
+            "use_rtabmap_cmd": "False",
+        }.items(),
     )
 
-    dual_ekf_cmd = IncludeLaunchDescription(
+    summit_navigation_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
-                get_package_share_directory("summit_localization"),
+                get_package_share_directory("summit_navigation"),
                 "launch",
-                "dual_ekf.launch.py",
+                "bringup.launch.py",
             )
         ),
-        launch_arguments={"use_sim_time": use_sim_time}.items(),
+        launch_arguments={
+            "use_sim_time": use_sim_time,
+        }.items(),
     )
 
     ld = LaunchDescription()
@@ -72,7 +79,7 @@ def generate_launch_description():
     ld.add_action(depth_image_centering_node)
     ld.add_action(furrow_following_node)
     ld.add_action(camera_info_pub_cmd)
-    ld.add_action(ekf_cmd)
-    ld.add_action(dual_ekf_cmd)
+    ld.add_action(summit_localization_cmd)
+    # ld.add_action(summit_navigation_cmd)
 
     return ld
