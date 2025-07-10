@@ -6,13 +6,13 @@ from furrow_following.states import (
     GetGpsState,
     CheckEndFurrowState,
 )
-from furrow_following.states.outcomes import FURROW_CONTINUES, FURROW_ENDS
+from furrow_following.states.outcomes import CONTINUES, ENDS
 
 
 class CheckEndFurrowStateMachine(StateMachine):
 
     def __init__(self, poligon: List[Tuple[float, float]]) -> None:
-        super().__init__([FURROW_ENDS, CANCEL])
+        super().__init__([ENDS, CANCEL])
 
         self.add_state(
             "GETTING_GPS",
@@ -27,7 +27,7 @@ class CheckEndFurrowStateMachine(StateMachine):
             "CHECKING_END_FURROW",
             CheckEndFurrowState(poligon),
             {
-                FURROW_CONTINUES: "GETTING_GPS",
-                FURROW_ENDS: FURROW_ENDS,
+                CONTINUES: "GETTING_GPS",
+                ENDS: ENDS,
             },
         )

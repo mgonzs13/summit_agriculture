@@ -4,13 +4,13 @@ from yasmin import State
 from yasmin.blackboard import Blackboard
 from sensor_msgs.msg import NavSatFix
 
-from furrow_following.states.outcomes import FURROW_CONTINUES, FURROW_ENDS
+from furrow_following.states.outcomes import CONTINUES, ENDS
 
 
 class CheckEndFurrowState(State):
 
     def __init__(self, poligon: List[Tuple[float, float]]) -> None:
-        super().__init__([FURROW_CONTINUES, FURROW_ENDS])
+        super().__init__([CONTINUES, ENDS])
         self.poligon = poligon
 
     def execute(self, blackboard: Blackboard) -> str:
@@ -19,11 +19,11 @@ class CheckEndFurrowState(State):
         blackboard["furrows_end"] = False
 
         if self.is_point_in_polygon(msg.latitude, msg.longitude, self.poligon):
-            return FURROW_CONTINUES
+            return CONTINUES
 
         yasmin.YASMIN_LOG_INFO("End of furrow")
         blackboard["furrows_end"] = True
-        return FURROW_ENDS
+        return ENDS
 
     def is_point_in_polygon(
         self, x: float, y: float, polygon: List[Tuple[float, float]]

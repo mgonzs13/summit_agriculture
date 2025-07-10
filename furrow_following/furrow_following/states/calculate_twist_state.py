@@ -5,7 +5,7 @@ from yasmin.blackboard import Blackboard
 from yasmin_ros.basic_outcomes import SUCCEED, ABORT
 from geometry_msgs.msg import Twist
 
-from furrow_following.states.outcomes import FURROW_ENDS
+from furrow_following.states.outcomes import ENDS
 
 
 class CalculateTwistState(State):
@@ -13,7 +13,7 @@ class CalculateTwistState(State):
     def __init__(
         self, Kp: float = 0.015, linear_speed: float = 0.4, max_angular: float = 0.4
     ) -> None:
-        super().__init__([SUCCEED, FURROW_ENDS, ABORT])
+        super().__init__([SUCCEED, ENDS, ABORT])
 
         self.Kp = Kp
         self.linear_speed = linear_speed
@@ -25,7 +25,7 @@ class CalculateTwistState(State):
         if "furrows_end" in blackboard:
             if blackboard["furrows_end"]:
                 yasmin.YASMIN_LOG_INFO("Furrow end detected, stopping robot")
-                return FURROW_ENDS
+                return ENDS
 
         processed_depth: np.ndarray = blackboard["processed_depth"]
         depth_image: np.ndarray = blackboard["depth_image"]

@@ -7,7 +7,11 @@ from furrow_following.state_machines.check_end_furrow_state_machine import (
 from furrow_following.state_machines.furrow_following_state_machine import (
     FurrowFollowingStateMachine,
 )
-from furrow_following.states.outcomes import FURROW_ENDS
+from furrow_following.state_machines.turning_state_machine import TurningStateMachine
+from furrow_following.state_machines.moving_forward_state_machine import (
+    MovingForwardStateMachine,
+)
+from furrow_following.states.outcomes import ENDS
 
 
 class MainStateMachine(StateMachine):
@@ -32,7 +36,7 @@ class MainStateMachine(StateMachine):
                 default_outcome=SUCCEED,
                 outcome_map={
                     SUCCEED: {
-                        self.check_end_furrow_sm: FURROW_ENDS,
+                        self.check_end_furrow_sm: ENDS,
                         self.furrow_following_sm: SUCCEED,
                     },
                     CANCEL: {self.check_end_furrow_sm: CANCEL},
@@ -41,8 +45,35 @@ class MainStateMachine(StateMachine):
                 },
             ),
             {
-                SUCCEED: SUCCEED,
+                SUCCEED: "TURNING_1",
                 ABORT: ABORT,
+                CANCEL: CANCEL,
+            },
+        )
+
+        self.add_state(
+            "TURNING_1",
+            TurningStateMachine(),
+            {
+                ENDS: "MOVING_FORWARD",
+                CANCEL: CANCEL,
+            },
+        )
+
+        self.add_state(
+            "MOVING_FORWARD",
+            MovingForwardStateMachine(),
+            {
+                ENDS: "TURNING_2",
+                CANCEL: CANCEL,
+            },
+        )
+
+        self.add_state(
+            "TURNING_2",
+            TurningStateMachine(),
+            {
+                ENDS: SUCCEED,
                 CANCEL: CANCEL,
             },
         )

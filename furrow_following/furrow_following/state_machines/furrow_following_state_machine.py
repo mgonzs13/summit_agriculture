@@ -6,7 +6,7 @@ from furrow_following.states import (
     CalculateTwistState,
     DriveState,
 )
-from furrow_following.states.outcomes import FURROW_CONTINUES, FURROW_ENDS
+from furrow_following.states.outcomes import CONTINUES, ENDS
 
 
 class FurrowFollowingStateMachine(StateMachine):
@@ -29,7 +29,7 @@ class FurrowFollowingStateMachine(StateMachine):
             {
                 SUCCEED: "DRIVING",
                 ABORT: ABORT,
-                FURROW_ENDS: SUCCEED,
+                ENDS: SUCCEED,
             },
         )
 
