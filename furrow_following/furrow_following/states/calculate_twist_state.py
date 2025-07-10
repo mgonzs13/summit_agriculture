@@ -11,7 +11,10 @@ from furrow_following.states.outcomes import ENDS
 class CalculateTwistState(State):
 
     def __init__(
-        self, Kp: float = 0.015, linear_speed: float = 0.4, max_angular: float = 0.4
+        self,
+        Kp: float = 0.015,
+        linear_speed: float = 0.4,
+        max_angular: float = 0.4,
     ) -> None:
         super().__init__([SUCCEED, ENDS, ABORT])
 
@@ -25,6 +28,7 @@ class CalculateTwistState(State):
         if "furrows_end" in blackboard:
             if blackboard["furrows_end"]:
                 yasmin.YASMIN_LOG_INFO("Furrow end detected, stopping robot")
+                self.highest_point_memory = None
                 return ENDS
 
         processed_depth: np.ndarray = blackboard["processed_depth"]

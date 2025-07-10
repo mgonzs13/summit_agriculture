@@ -73,7 +73,7 @@ class MainStateMachine(StateMachine):
             "TURNING_2",
             TurningStateMachine(),
             {
-                ENDS: SUCCEED,
+                ENDS: "FURROW_FOLLOWING",
                 CANCEL: CANCEL,
             },
         )

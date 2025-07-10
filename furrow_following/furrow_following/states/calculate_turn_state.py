@@ -13,6 +13,7 @@ class CalculateTurnState(State):
     def __init__(self, target_angle: float = -90.0) -> None:
         super().__init__([CONTINUES, ENDS])
         self.target_angle = target_angle  # degrees
+        self.start_yaw = None
 
     def get_yaw_from_quaternion(self, quat) -> float:
         _, _, yaw = tf_transformations.euler_from_quaternion(
@@ -30,12 +31,12 @@ class CalculateTurnState(State):
 
         blackboard["twist_msg"] = Twist()
 
-        if "start_yaw" not in blackboard or blackboard["start_yaw"] is None:
-            blackboard["start_yaw"] = current_yaw
+        if self.start_yaw is None:
+            self.start_yaw = current_yaw
             yasmin.YASMIN_LOG_INFO(f"Start yaw: {math.degrees(current_yaw):.2f} deg")
             return CONTINUES
 
-        angle_turned = self.normalize_angle(current_yaw - blackboard["start_yaw"])
+        angle_turned = self.normalize_angle(current_yaw - self.start_yaw)
         degrees_turned = math.degrees(angle_turned)
         yasmin.YASMIN_LOG_INFO(f"Turned: {degrees_turned:.2f} deg")
 
@@ -46,4 +47,5 @@ class CalculateTurnState(State):
             blackboard["twist_msg"].angular.z = 1.0 if self.target_angle > 0 else -1.0
             return CONTINUES
 
+        self.start_yaw = None
         return ENDS
