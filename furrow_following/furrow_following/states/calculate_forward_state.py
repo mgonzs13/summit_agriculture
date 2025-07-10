@@ -40,7 +40,7 @@ class CalculateForwardState(State):
         yasmin.YASMIN_LOG_INFO(f"Moved: {distance_moved:.2f} m")
 
         if distance_moved < self.target_distance:
-            blackboard["twist_msg"].linear.x = 0.2  # m/s
+            blackboard["twist_msg"].linear.x = 0.25
             return CONTINUES
 
         self.start_position = None

@@ -6,8 +6,6 @@ from yasmin.blackboard import Blackboard
 from yasmin_ros.basic_outcomes import SUCCEED, ABORT
 from geometry_msgs.msg import Twist
 
-from furrow_following.states.outcomes import ENDS
-
 
 class CalculateTwistState(State):
 

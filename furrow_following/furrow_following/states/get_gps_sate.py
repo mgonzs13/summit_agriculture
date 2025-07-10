@@ -13,6 +13,7 @@ class GetGpsState(MonitorState):
             [SUCCEED],
             monitor_handler=self.handle_gps,
             timeout=0.05,
+            msg_queue=1,
         )
 
     def handle_gps(self, blackboard: Blackboard, msg: NavSatFix) -> str:

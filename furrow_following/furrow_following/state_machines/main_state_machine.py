@@ -7,9 +7,8 @@ from furrow_following.state_machines.check_end_furrow_state_machine import (
 from furrow_following.state_machines.furrow_following_state_machine import (
     FurrowFollowingStateMachine,
 )
-from furrow_following.state_machines.turning_state_machine import TurningStateMachine
-from furrow_following.state_machines.moving_forward_state_machine import (
-    MovingForwardStateMachine,
+from furrow_following.state_machines.move_to_next_furrow_state_machine import (
+    MoveToNextFurrowStateMachine,
 )
 from furrow_following.states.outcomes import ENDS, CONTINUES
 
@@ -34,40 +33,22 @@ class MainStateMachine(StateMachine):
             CheckEndFurrowStateMachine(
                 [
                     (42.61289831883529, -5.5655960952234915),
-                    (42.61280378018076, -5.5655960952234915),
-                    (42.61280378018076, -5.565724812262146),
+                    (42.61280368018076, -5.5655960952234915),
+                    (42.61280368018076, -5.565724812262146),
                     (42.61289831883529, -5.565724812262146),
                 ]
             ),
             {
-                ENDS: "TURNING_1",
+                ENDS: "MOVING_TO_NEXT_FURROW",
                 CONTINUES: "FURROW_FOLLOWING",
             },
         )
 
         self.add_state(
-            "TURNING_1",
-            TurningStateMachine(),
+            "MOVING_TO_NEXT_FURROW",
+            MoveToNextFurrowStateMachine(),
             {
-                ENDS: "MOVING_FORWARD",
-                CANCEL: CANCEL,
-            },
-        )
-
-        self.add_state(
-            "MOVING_FORWARD",
-            MovingForwardStateMachine(),
-            {
-                ENDS: "TURNING_2",
-                CANCEL: CANCEL,
-            },
-        )
-
-        self.add_state(
-            "TURNING_2",
-            TurningStateMachine(),
-            {
-                ENDS: "FURROW_FOLLOWING",
+                SUCCEED: "FURROW_FOLLOWING",
                 CANCEL: CANCEL,
             },
         )

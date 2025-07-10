@@ -7,7 +7,7 @@ from furrow_following.states.outcomes import CONTINUES, ENDS
 
 class TurningStateMachine(StateMachine):
 
-    def __init__(self) -> None:
+    def __init__(self, target_angle: float = -90.0) -> None:
         super().__init__([ENDS, CANCEL])
 
         self.add_state(
@@ -21,7 +21,7 @@ class TurningStateMachine(StateMachine):
 
         self.add_state(
             "CALCULATING_TURN",
-            CalculateTurnState(),
+            CalculateTurnState(target_angle),
             {
                 CONTINUES: "DRIVING",
                 ENDS: ENDS,

@@ -7,7 +7,7 @@ from furrow_following.states.outcomes import CONTINUES, ENDS
 
 class MovingForwardStateMachine(StateMachine):
 
-    def __init__(self) -> None:
+    def __init__(self, target_distance: float = 0.5) -> None:
         super().__init__([ENDS, CANCEL])
 
         self.add_state(
@@ -21,7 +21,7 @@ class MovingForwardStateMachine(StateMachine):
 
         self.add_state(
             "CALCULATING_FORWARD",
-            CalculateForwardState(),
+            CalculateForwardState(target_distance),
             {
                 CONTINUES: "DRIVING",
                 ENDS: ENDS,
