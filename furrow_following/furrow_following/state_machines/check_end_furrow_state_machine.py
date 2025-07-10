@@ -1,6 +1,6 @@
 from typing import List, Tuple
 from yasmin.state_machine import StateMachine
-from yasmin_ros.basic_outcomes import SUCCEED, ABORT, CANCEL
+from yasmin_ros.basic_outcomes import SUCCEED, CANCEL, TIMEOUT
 
 from furrow_following.states import (
     GetGpsState,
@@ -12,7 +12,7 @@ from furrow_following.states.outcomes import CONTINUES, ENDS
 class CheckEndFurrowStateMachine(StateMachine):
 
     def __init__(self, poligon: List[Tuple[float, float]]) -> None:
-        super().__init__([ENDS, CANCEL])
+        super().__init__([ENDS, CONTINUES, CANCEL])
 
         self.add_state(
             "GETTING_GPS",
@@ -20,6 +20,7 @@ class CheckEndFurrowStateMachine(StateMachine):
             {
                 SUCCEED: "CHECKING_END_FURROW",
                 CANCEL: CANCEL,
+                TIMEOUT: CONTINUES,
             },
         )
 
@@ -27,7 +28,7 @@ class CheckEndFurrowStateMachine(StateMachine):
             "CHECKING_END_FURROW",
             CheckEndFurrowState(poligon),
             {
-                CONTINUES: "GETTING_GPS",
+                CONTINUES: CONTINUES,
                 ENDS: ENDS,
             },
         )

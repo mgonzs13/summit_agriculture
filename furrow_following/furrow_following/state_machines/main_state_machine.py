@@ -1,4 +1,4 @@
-from yasmin import StateMachine, Concurrence
+from yasmin import StateMachine
 from yasmin_ros.basic_outcomes import SUCCEED, ABORT, CANCEL
 
 from furrow_following.state_machines.check_end_furrow_state_machine import (
@@ -11,7 +11,7 @@ from furrow_following.state_machines.turning_state_machine import TurningStateMa
 from furrow_following.state_machines.moving_forward_state_machine import (
     MovingForwardStateMachine,
 )
-from furrow_following.states.outcomes import ENDS
+from furrow_following.states.outcomes import ENDS, CONTINUES
 
 
 class MainStateMachine(StateMachine):
@@ -19,35 +19,29 @@ class MainStateMachine(StateMachine):
     def __init__(self) -> None:
         super().__init__([SUCCEED, ABORT, CANCEL])
 
-        self.furrow_following_sm = FurrowFollowingStateMachine()
-        self.check_end_furrow_sm = CheckEndFurrowStateMachine(
-            [
-                (42.61289831883529, -5.5655960952234915),
-                (42.61280378018076, -5.5655960952234915),
-                (42.61280378018076, -5.565724812262146),
-                (42.61289831883529, -5.565724812262146),
-            ]
+        self.add_state(
+            "FURROW_FOLLOWING",
+            FurrowFollowingStateMachine(),
+            {
+                SUCCEED: "CHECKING_END_FURROW",
+                ABORT: ABORT,
+                CANCEL: CANCEL,
+            },
         )
 
         self.add_state(
-            "FURROW_FOLLOWING",
-            Concurrence(
-                [self.furrow_following_sm, self.check_end_furrow_sm],
-                default_outcome=SUCCEED,
-                outcome_map={
-                    SUCCEED: {
-                        self.check_end_furrow_sm: ENDS,
-                        self.furrow_following_sm: SUCCEED,
-                    },
-                    CANCEL: {self.check_end_furrow_sm: CANCEL},
-                    CANCEL: {self.furrow_following_sm: CANCEL},
-                    ABORT: {self.furrow_following_sm: ABORT},
-                },
+            "CHECKING_END_FURROW",
+            CheckEndFurrowStateMachine(
+                [
+                    (42.61289831883529, -5.5655960952234915),
+                    (42.61280378018076, -5.5655960952234915),
+                    (42.61280378018076, -5.565724812262146),
+                    (42.61289831883529, -5.565724812262146),
+                ]
             ),
             {
-                SUCCEED: "TURNING_1",
-                ABORT: ABORT,
-                CANCEL: CANCEL,
+                ENDS: "TURNING_1",
+                CONTINUES: "FURROW_FOLLOWING",
             },
         )
 

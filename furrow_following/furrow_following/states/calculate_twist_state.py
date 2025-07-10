@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import yasmin
 from yasmin import State
@@ -16,20 +17,15 @@ class CalculateTwistState(State):
         linear_speed: float = 0.4,
         max_angular: float = 0.4,
     ) -> None:
-        super().__init__([SUCCEED, ENDS, ABORT])
+        super().__init__([SUCCEED, ABORT])
 
         self.Kp = Kp
         self.linear_speed = linear_speed
         self.max_angular = max_angular
         self.highest_point_memory = None
+        self.highest_point_timestamp = None
 
     def execute(self, blackboard: Blackboard) -> str:
-
-        if "furrows_end" in blackboard:
-            if blackboard["furrows_end"]:
-                yasmin.YASMIN_LOG_INFO("Furrow end detected, stopping robot")
-                self.highest_point_memory = None
-                return ENDS
 
         processed_depth: np.ndarray = blackboard["processed_depth"]
         depth_image: np.ndarray = blackboard["depth_image"]
@@ -74,8 +70,16 @@ class CalculateTwistState(State):
         )
 
         # Temporal smoothing of column position
+        if self.highest_point_timestamp is not None:
+            elapsed_time = time.time() - self.highest_point_timestamp
+            if elapsed_time > 0.1:
+                # Reset memory if too much time has passed
+                yasmin.YASMIN_LOG_INFO("Resetting highest point memory due to timeout")
+                self.highest_point_memory = None
+
         if self.highest_point_memory is None:
             self.highest_point_memory = highest_col
+            self.highest_point_timestamp = time.time()
         else:
             self.highest_point_memory = (
                 0.5 * self.highest_point_memory + 0.5 * highest_col

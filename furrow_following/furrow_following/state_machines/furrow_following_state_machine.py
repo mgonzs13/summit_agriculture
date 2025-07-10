@@ -6,7 +6,6 @@ from furrow_following.states import (
     CalculateTwistState,
     DriveState,
 )
-from furrow_following.states.outcomes import CONTINUES, ENDS
 
 
 class FurrowFollowingStateMachine(StateMachine):
@@ -29,7 +28,6 @@ class FurrowFollowingStateMachine(StateMachine):
             {
                 SUCCEED: "DRIVING",
                 ABORT: ABORT,
-                ENDS: SUCCEED,
             },
         )
 
@@ -37,6 +35,6 @@ class FurrowFollowingStateMachine(StateMachine):
             "DRIVING",
             DriveState("/robot/robotnik_base_control/cmd_vel"),
             {
-                SUCCEED: "GETTING_DEPTH_IMAGE",
+                SUCCEED: SUCCEED,
             },
         )
