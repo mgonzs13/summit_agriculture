@@ -37,13 +37,6 @@ def generate_launch_description():
         name="furrow_following_node",
     )
 
-    camera_info_pub_cmd = Node(
-        package="camera_info_pub",
-        executable="camera_info_pub_node",
-        name="camera_info_pub_node",
-        condition=UnlessCondition(PythonExpression([is_sim])),
-    )
-
     summit_localization_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
@@ -57,6 +50,7 @@ def generate_launch_description():
             "is_sim": is_sim,
             "use_gps": "True",
             "use_rtabmap_cmd": "False",
+            "use_obstacles_detection": "False",
         }.items(),
     )
 
@@ -78,7 +72,6 @@ def generate_launch_description():
     ld.add_action(is_sim_cmd)
     ld.add_action(depth_image_centering_node)
     ld.add_action(furrow_following_node)
-    ld.add_action(camera_info_pub_cmd)
     ld.add_action(summit_localization_cmd)
     # ld.add_action(summit_navigation_cmd)
 

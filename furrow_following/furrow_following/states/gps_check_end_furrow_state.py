@@ -7,7 +7,7 @@ from sensor_msgs.msg import NavSatFix
 from furrow_following.states.outcomes import CONTINUES, ENDS
 
 
-class CheckEndFurrowState(State):
+class GpsCheckEndFurrowState(State):
 
     def __init__(self, poligon: List[Tuple[float, float]]) -> None:
         super().__init__([CONTINUES, ENDS])

@@ -67,8 +67,15 @@ def generate_launch_description():
     use_rtabmap = LaunchConfiguration("use_rtabmap")
     use_rtabmap_cmd = DeclareLaunchArgument(
         "use_rtabmap",
-        default_value="False",
+        default_value="True",
         description="Whether use RTAB-Map for SLAM",
+    )
+
+    use_obstacles_detection = LaunchConfiguration("use_obstacles_detection")
+    use_obstacles_detection_cmd = DeclareLaunchArgument(
+        "use_obstacles_detection",
+        default_value="True",
+        description="Whether use obstacles detection",
     )
 
     laser_filter_node_cmd = Node(
@@ -114,6 +121,7 @@ def generate_launch_description():
             os.path.join(pkg_localization, "launch", "obstacles_detection.launch.py")
         ),
         launch_arguments={"use_sim_time": use_sim_time}.items(),
+        condition=IfCondition(PythonExpression([use_obstacles_detection])),
     )
 
     ekf_cmd = IncludeLaunchDescription(
@@ -161,6 +169,7 @@ def generate_launch_description():
     ld.add_action(is_sim_cmd)
     ld.add_action(use_gps_cmd)
     ld.add_action(use_rtabmap_cmd)
+    ld.add_action(use_obstacles_detection_cmd)
     ld.add_action(laser_filter_node_cmd)
     ld.add_action(camera_info_pub_cmd)
     ld.add_action(rgbd_odometry_cmd)
