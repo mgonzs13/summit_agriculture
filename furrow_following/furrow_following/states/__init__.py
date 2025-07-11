@@ -2,7 +2,7 @@ from furrow_following.states.calculate_twist_state import CalculateTwistState
 from furrow_following.states.calculate_turn_state import CalculateTurnState
 from furrow_following.states.calculate_forward_state import CalculateForwardState
 from furrow_following.states.calculate_next_furrow_state import CalculateNextFurrowState
-from furrow_following.furrow_following.states.gps_check_end_furrow_state import (
+from furrow_following.states.gps_check_end_furrow_state import (
     GpsCheckEndFurrowState,
 )
 from furrow_following.states.odom_check_end_furrow_state import OdomCheckEndFurrowState

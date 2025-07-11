@@ -49,7 +49,7 @@ def generate_launch_description():
             "use_sim_time": use_sim_time,
             "is_sim": is_sim,
             "use_gps": "True",
-            "use_rtabmap_cmd": "False",
+            "use_rtabmap": "False",
             "use_obstacles_detection": "False",
         }.items(),
     )
