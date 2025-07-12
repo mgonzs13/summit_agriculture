@@ -15,16 +15,25 @@ class MoveToNextFurrowStateMachine(StateMachine):
         super().__init__([SUCCEED, CANCEL])
 
         self.add_state(
-            "TURNING_1",
-            TurningStateMachine(-90.0),
+            "MOVING_FORWARD_1",
+            MovingForwardStateMachine(0.5),
             {
-                ENDS: "MOVING_FORWARD_1",
+                ENDS: "TURNING_1",
                 CANCEL: CANCEL,
             },
         )
 
         self.add_state(
-            "MOVING_FORWARD_1",
+            "TURNING_1",
+            TurningStateMachine(-80.0),
+            {
+                ENDS: "MOVING_FORWARD_2",
+                CANCEL: CANCEL,
+            },
+        )
+
+        self.add_state(
+            "MOVING_FORWARD_2",
             MovingForwardStateMachine(0.5),
             {
                 ENDS: "TURNING_2",
@@ -36,13 +45,13 @@ class MoveToNextFurrowStateMachine(StateMachine):
             "TURNING_2",
             TurningStateMachine(-80.0),
             {
-                ENDS: "MOVING_FORWARD_2",
+                ENDS: "MOVING_FORWARD_3",
                 CANCEL: CANCEL,
             },
         )
 
         self.add_state(
-            "MOVING_FORWARD_2",
+            "MOVING_FORWARD_3",
             MovingForwardStateMachine(1.0),
             {
                 ENDS: SUCCEED,
