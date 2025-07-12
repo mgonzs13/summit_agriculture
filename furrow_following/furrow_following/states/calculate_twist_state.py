@@ -1,3 +1,4 @@
+import cv2
 import time
 import numpy as np
 import yasmin
@@ -70,7 +71,7 @@ class CalculateTwistState(State):
         # Temporal smoothing of column position
         if self.highest_point_timestamp is not None:
             elapsed_time = time.time() - self.highest_point_timestamp
-            if elapsed_time > 0.1:
+            if elapsed_time > 1.0:
                 # Reset memory if too much time has passed
                 yasmin.YASMIN_LOG_INFO("Resetting highest point memory due to timeout")
                 self.highest_point_memory = None
@@ -79,9 +80,15 @@ class CalculateTwistState(State):
             self.highest_point_memory = highest_col
             self.highest_point_timestamp = time.time()
         else:
-            self.highest_point_memory = (
-                0.5 * self.highest_point_memory + 0.5 * highest_col
-            )
+            if abs(self.highest_point_memory - highest_col) > 100:
+                yasmin.YASMIN_LOG_INFO(
+                    "Detected jump in furrow location, rejecting update"
+                )
+                highest_col = self.highest_point_memory
+            else:
+                self.highest_point_memory = (
+                    0.5 * self.highest_point_memory + 0.5 * highest_col
+                )
 
         target_center = self.highest_point_memory
 
