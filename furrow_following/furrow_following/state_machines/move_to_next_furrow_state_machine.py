@@ -16,7 +16,7 @@ class MoveToNextFurrowStateMachine(StateMachine):
 
         self.add_state(
             "MOVING_FORWARD_1",
-            MovingForwardStateMachine(0.5),
+            MovingForwardStateMachine(1.5),
             {
                 ENDS: "TURNING_1",
                 CANCEL: CANCEL,

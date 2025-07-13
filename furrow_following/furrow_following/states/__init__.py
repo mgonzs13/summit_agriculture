@@ -6,6 +6,9 @@ from furrow_following.states.gps_check_end_furrow_state import (
     GpsCheckEndFurrowState,
 )
 from furrow_following.states.odom_check_end_furrow_state import OdomCheckEndFurrowState
+from furrow_following.states.depth_check_end_furrow_state import (
+    DepthCheckEndFurrowState,
+)
 from furrow_following.states.drive_state import DriveState
 from furrow_following.states.get_depth_image_sate import GetDepthImageState
 from furrow_following.states.get_gps_sate import GetGpsState

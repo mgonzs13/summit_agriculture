@@ -22,18 +22,10 @@ class MainStateMachine(StateMachine):
             "FURROW_FOLLOWING",
             FurrowFollowingStateMachine(),
             {
-                SUCCEED: "CHECKING_END_FURROW",
+                SUCCEED: "FURROW_FOLLOWING",
                 ABORT: ABORT,
                 CANCEL: CANCEL,
-            },
-        )
-
-        self.add_state(
-            "CHECKING_END_FURROW",
-            OdomCheckEndFurrowStateMachine(10),
-            {
                 ENDS: "MOVING_TO_NEXT_FURROW",
-                CONTINUES: "FURROW_FOLLOWING",
             },
         )
 
