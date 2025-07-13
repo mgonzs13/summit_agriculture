@@ -25,7 +25,7 @@ class MoveToNextFurrowStateMachine(StateMachine):
 
         self.add_state(
             "TURNING_1",
-            TurningStateMachine(-80.0),
+            TurningStateMachine(-90.0),
             {
                 ENDS: "MOVING_FORWARD_2",
                 CANCEL: CANCEL,
@@ -43,7 +43,7 @@ class MoveToNextFurrowStateMachine(StateMachine):
 
         self.add_state(
             "TURNING_2",
-            TurningStateMachine(-80.0),
+            TurningStateMachine(-90.0),
             {
                 ENDS: "MOVING_FORWARD_3",
                 CANCEL: CANCEL,
