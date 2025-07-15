@@ -19,3 +19,6 @@
 [submodule "teb_local_planner"]
 	path = teb_local_planner
 	url = git@github.com:mgonzs13/teb_local_planner.git
+[submodule "ros2_asus_xtion"]
+	path = ros2_asus_xtion
+	url = git@github.com:mgonzs13/ros2_asus_xtion.git

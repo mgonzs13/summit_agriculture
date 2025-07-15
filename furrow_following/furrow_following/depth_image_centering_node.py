@@ -15,10 +15,8 @@ class DepthImageCenteringNode(Node):
         super().__init__("depth_image_centering_node")
 
         # Parameters
-        self.declare_parameter(
-            "depth_topic", "/robot/zed2/zed_node/depth/depth_registered"
-        )
-        self.declare_parameter("camera_info_topic", "/robot/zed2/zed_node/camera_info")
+        self.declare_parameter("depth_topic", "/camera/depth/image_raw")
+        self.declare_parameter("camera_info_topic", "/camera/depth/camera_info")
         self.declare_parameter("target_frame", "robot/base_footprint")
         self.declare_parameter("output_topic", "/depth_centered")
 
