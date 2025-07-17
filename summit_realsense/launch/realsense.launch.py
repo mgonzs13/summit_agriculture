@@ -28,6 +28,9 @@ def generate_launch_description():
             "rgb_camera.color_profile": "1280,720,30",
             "depth_module.depth_profile": "1280,720,30",
             "align_depth.enable": "true",
+            "unite_imu_method": "1",
+            "enable_gyro": "true",
+            "enable_accel": "true",
         }.items(),
     )
 
@@ -43,8 +46,8 @@ def generate_launch_description():
                 plugin="depth_image_proc::ConvertMetricNode",
                 name="convert_metric_node",
                 remappings=[
-                    ("image_raw", "/camera/camera/depth/image_rect"),
-                    ("image", "/camera/camera/depth/image_rect_32fc1"),
+                    ("image_raw", "/camera/camera/depth/image_rect_raw"),
+                    ("image", "/camera/camera/depth/image_rect_raw_32fc1"),
                 ],
             ),
         ],
