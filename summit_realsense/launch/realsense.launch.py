@@ -12,6 +12,16 @@ def generate_launch_description():
         get_package_share_directory("realsense2_camera"), "launch"
     )
 
+    description_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory("summit_realsense"),
+                "launch",
+                "robot_state_publisher.launch.py",
+            )
+        )
+    )
+
     realsense_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(realsense_launch_dir, "rs_launch.py")),
         launch_arguments={
@@ -27,37 +37,24 @@ def generate_launch_description():
         package="rclcpp_components",
         executable="component_container",
         composable_node_descriptions=[
-            # Register depth to RGB frame
-            ComposableNode(
-                package="depth_image_proc",
-                plugin="depth_image_proc::RegisterNode",
-                name="register_node",
-                remappings=[
-                    ("depth/image_rect", "/camera/camera/depth/image_rect_raw"),
-                    ("rgb/camera_info", "/camera/camera/color/camera_info"),
-                    ("depth/camera_info", "/camera/camera/depth/camera_info"),
-                    (
-                        "depth_registered/image_rect",
-                        "/camera/camera/depth_registered/image_rect",
-                    ),
-                    (
-                        "depth_registered/camera_info",
-                        "/camera/camera/depth_registered/camera_info",
-                    ),
-                ],
-            ),
             # Convert to 32FC1
             ComposableNode(
                 package="depth_image_proc",
                 plugin="depth_image_proc::ConvertMetricNode",
                 name="convert_metric_node",
                 remappings=[
-                    ("image_raw", "/camera/camera/depth_registered/image_rect"),
-                    ("image", "/camera/camera/depth_registered/image_rect_32fc1"),
+                    ("image_raw", "/camera/camera/depth/image_rect"),
+                    ("image", "/camera/camera/depth/image_rect_32fc1"),
                 ],
             ),
         ],
         output="screen",
     )
 
-    return LaunchDescription([realsense_launch, depth_proc_container])
+    return LaunchDescription(
+        [
+            description_cmd,
+            realsense_launch,
+            depth_proc_container,
+        ]
+    )
