@@ -28,6 +28,9 @@ def generate_launch_description():
             "rgb_camera.color_profile": "1280,720,30",
             "depth_module.depth_profile": "1280,720,30",
             "align_depth.enable": "true",
+            "unite_imu_method": "1",
+            "enable_gyro": "true",
+            "enable_accel": "true",
         }.items(),
     )
 
