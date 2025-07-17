@@ -43,8 +43,8 @@ def generate_launch_description():
                 plugin="depth_image_proc::ConvertMetricNode",
                 name="convert_metric_node",
                 remappings=[
-                    ("image_raw", "/camera/camera/depth/image_rect"),
-                    ("image", "/camera/camera/depth/image_rect_32fc1"),
+                    ("image_raw", "/camera/camera/depth/image_rect_raw"),
+                    ("image", "/camera/camera/depth/image_rect_raw_32fc1"),
                 ],
             ),
         ],
