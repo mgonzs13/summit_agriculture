@@ -31,7 +31,7 @@ from gazebo_msgs.srv import SpawnEntity
 from ament_index_python.packages import get_package_share_directory
 
 
-class CornSpawner(Node):
+class MaizeSpawner(Node):
     def __init__(self):
         super().__init__("corn_spawner")
 
@@ -110,7 +110,7 @@ class CornSpawner(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = CornSpawner()
+    node = MaizeSpawner()
     node.destroy_node()
     rclpy.shutdown()
 
